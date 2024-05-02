@@ -1,5 +1,9 @@
 #include "ui.h"
 
+/**
+ * Shows the main menu.
+ * It is the entry interface for the application.
+*/
 void UI::mainMenu()
 {
 	while (1)
@@ -44,9 +48,9 @@ void UI::mainMenu()
 					break;
 				case 'c':
 				case 'C':
+					selectorMenu();
 					break;
 			}
-			continue;
 		}
     }
 }

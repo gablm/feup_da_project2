@@ -7,13 +7,16 @@ std::string Manager::getCurrentDatasetType() const {
 		case none:
 			return "None";
 		case toy_shipping:
-			return "Tou - Shipping";
+			return "Toy - Shipping";
 		case toy_stadiums:
 			return "Toy - Stadiums";
 		case toy_tourism:
 			return "Toy - Tourism";
 		case real_world:
-			out << "Real World - " << option; 
+			out << "Real World - Graph " << option; 
+			return out.str();
+		case extra:
+			out << "Extra - " << option << " Edges"; 
 			return out.str();
 		default:
 			return "None";

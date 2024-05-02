@@ -22,7 +22,7 @@ class UI {
 		Manager manager;
 	public:
 		void mainMenu();
-		void selectorMenu(HeuristicType type);
+		void selectorMenu();
 
 };
 
