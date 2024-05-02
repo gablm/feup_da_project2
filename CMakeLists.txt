@@ -16,3 +16,5 @@ add_executable(da_project2
 	src/ui/mainMenu.cpp
 	src/ui/selectorMenu.cpp
 )
+
+file(COPY datasets DESTINATION ${CMAKE_BINARY_DIR})

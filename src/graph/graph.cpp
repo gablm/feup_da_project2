@@ -3,7 +3,7 @@
 /************************* Vertex  **************************/
 
 Vertex::Vertex(int id) : id(id) {}
-Vertex::Vertex(int id, void *info) : id(id), info(info) {}
+Vertex::Vertex(int id, std::string info) : id(id), info(info) {}
 
 /*
  * Auxiliary function to add an outgoing edge to a vertex (this),
@@ -59,7 +59,7 @@ int Vertex::getId() const {
     return this->id;
 }
 
-void *Vertex::getInfo() const {
+std::string Vertex::getInfo() const {
     return this->info;
 }
 
@@ -95,7 +95,7 @@ void Vertex::setId(int id) {
     this->id = id;
 }
 
-void Vertex::setInfo(void *info) {
+void Vertex::setInfo(std::string info) {
     this->id = id;
 }
 
@@ -207,11 +207,11 @@ Vertex *Graph::findVertex(int id) const {
  *  Adds a vertex with a given content or info (in) to a graph (this).
  *  Returns true if successful, and false if a vertex with that content already exists.
  */
-bool Graph::addVertex(int id, void *info) {
+bool Graph::addVertex(int id, std::string info) {
 	if (findVertex(id) != nullptr)
     	return false;
 	
-	Vertex *vtx = info == nullptr ? new Vertex(id) : new Vertex(id, info);
+	Vertex *vtx = info == "" ? new Vertex(id) : new Vertex(id, info);
 	vertexMap[id] = vtx;
 	vertexSet.push_back(vtx);
 	return true;

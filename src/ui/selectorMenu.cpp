@@ -6,12 +6,7 @@ void UI::selectorMenu()
     {
         CLEAR;
         std::cout
-		<< "Dataset Selection\n"
-		<< "\n"
-		<< ">> Currently selected dataset: " << manager.getCurrentDatasetType() << "\n"
-		<< "\n"
-		<< "Select a dataset using the syntax:\n"
-        << "<dataset id> <dataset option>\n"
+		<< "Dataset Selection - Available datasets and their options\n"
 		<< "\n"
 		<< ">> ID 1 - Toy / Small sets\n"
 		<< " Available options:\n"
@@ -29,8 +24,12 @@ void UI::selectorMenu()
 		<< " Available options:\n"
 		<< " 1, 2, 3\n"
 		<< "\n"
-		<< "[B] Back\n"
-		<< "[Q] Exit\n"
+		<< ">> Currently selected dataset: " << manager.getCurrentDatasetType() << "\n"
+		<< "\n"
+		<< "Select a dataset using the syntax:\n"
+        << "<dataset id> <dataset option>\n"
+		<< "\n"
+		<< "[B] Back\t[Q] Exit\n"
 		<< "\n"
         << "$> ";
 		

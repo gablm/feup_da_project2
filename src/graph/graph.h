@@ -7,6 +7,7 @@
 #include <limits>
 #include <algorithm>
 #include <unordered_map>
+#include <string>
 
 class Edge;
 class Vertex;
@@ -19,11 +20,11 @@ class Graph;
 class Vertex {
 public:
     Vertex(int id);
-	Vertex(int id, void *info);
+	Vertex(int id, std::string info);
     bool operator<(Vertex& vertex) const;
 
 	int getId() const;
-    void *getInfo() const;
+    std::string getInfo() const;
     std::vector<Edge *> getAdj() const;
     bool isVisited() const;
     bool isProcessing() const;
@@ -33,7 +34,7 @@ public:
     std::vector<Edge *> getIncoming() const;
 
     void setId(int id);
-	void setInfo(void *info);
+	void setInfo(std::string info);
     void setVisited(bool visited);
     void setProcesssing(bool processing);
     void setIndegree(unsigned int indegree);
@@ -45,7 +46,7 @@ public:
 	
 protected:
 	int id;
-    void *info;
+    std::string info;
     std::vector<Edge *> adj;
 
     bool visited = false;
@@ -94,7 +95,7 @@ public:
     ~Graph();
 
     Vertex *findVertex(int in) const;
-    bool addVertex(int in, void *info);
+    bool addVertex(int in, std::string info);
     bool removeVertex(int in);
 
     bool addEdge(int sourc, int dest, double w);

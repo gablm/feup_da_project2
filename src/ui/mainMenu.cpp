@@ -19,7 +19,13 @@ void UI::mainMenu()
 		<< " [3] Other\n"
 		<< " [4] Real World\n"
 		<< "\n"
-		<< ">> Currently selected dataset: " << manager.getCurrentDatasetType() << "\n"
+		<< ">> Currently selected dataset: " << manager.getCurrentDatasetType();
+		
+		if (manager.getLoadTime() != -1)
+			std::cout << " (loaded in " << manager.getLoadTime() << "s)";
+
+		std::cout
+		<< "\n"
 		<< "[C] Change Dataset\n"
 		<< "\n"
 		<< "[Q] Exit\n"

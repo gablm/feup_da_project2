@@ -4,6 +4,12 @@
 #include "../graph/graph.h"
 #include <string>
 
+#ifdef __linux__
+# define CLEAR (void)system("clear")
+#else
+# define CLEAR (void)system("cls")
+#endif
+
 enum DatasetType {
 	none,
 	toy_shipping,
@@ -17,7 +23,7 @@ class Manager {
 	private:
 		DatasetType dType = none;
 		int option = -1;
-		long loadtime = 0;
+		long loadtime = -1;
 
 		Graph network;
 	public:
@@ -25,6 +31,7 @@ class Manager {
 		long getLoadTime() const;
 
 		void loadDataset(DatasetType type, int option = -1);
+		void loadToy(int option);
 };
 
 #endif

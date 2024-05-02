@@ -4,12 +4,6 @@
 #include "../manager/manager.h"
 #include <chrono>
 
-#ifdef __linux__
-# define CLEAR (void)system("clear")
-#else
-# define CLEAR (void)system("cls")
-#endif
-
 enum HeuristicType {
 	backtracking_2_1,
 	triangular_approximation_2_2,
