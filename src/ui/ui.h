@@ -11,7 +11,6 @@
 #endif
 
 enum HeuristicType {
-	none,
 	backtracking_2_1,
 	triangular_approximation_2_2,
 	other_2_3,

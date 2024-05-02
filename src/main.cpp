@@ -13,6 +13,6 @@ int main(void)
 #ifdef _WIN32
 	SetConsoleOutputCP(CP_UTF8);
 #endif
-    UI();
+    UI().mainMenu();
     return 0;
 }

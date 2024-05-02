@@ -2,6 +2,7 @@
 #define MANAGER_H
 
 #include "../graph/graph.h"
+#include <string>
 
 enum DatasetType {
 	none,
@@ -14,12 +15,13 @@ enum DatasetType {
 
 class Manager {
 	private:
-		DatasetType dType = DatasetType::none;
+		DatasetType dType = none;
+		int option = -1;
 		long loadtime = 0;
 
 		Graph network;
 	public:
-		DatasetType getCurrentDatasetType() const;
+		std::string getCurrentDatasetType() const;
 		long getLoadTime() const;
 
 		void loadDataset(DatasetType type, int option = -1);

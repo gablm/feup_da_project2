@@ -12,5 +12,7 @@ add_executable(da_project2
 	src/main.cpp
 	src/graph/graph.cpp
 	src/manager/loader.cpp
+	src/manager/manager.cpp
 	src/ui/mainMenu.cpp
+	src/ui/selectorMenu.cpp
 )
