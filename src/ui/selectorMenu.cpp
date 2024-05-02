@@ -20,7 +20,7 @@ void UI::selectorMenu()
 		<< " 3 - Tourism\n"
 		<< "\n"
 		<< ">> ID 2 - Extra\n"
-		<< " The option is the number of edges.\n"
+		<< " The option is the number of nodes.\n"
 		<< " Available options:\n"
 		<< " 25, 50, 75, 100, 200, 300,\n"
 		<< " 400, 500, 600, 700, 800, 900\n"

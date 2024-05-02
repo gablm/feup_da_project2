@@ -16,7 +16,7 @@ std::string Manager::getCurrentDatasetType() const {
 			out << "Real World - Graph " << option; 
 			return out.str();
 		case extra:
-			out << "Extra - " << option << " Edges"; 
+			out << "Extra - " << option << " Nodes"; 
 			return out.str();
 		default:
 			return "None";
