@@ -10,4 +10,7 @@ endif (UNIX)
 
 add_executable(da_project2
 	src/main.cpp
+	src/graph/graph.cpp
+	src/manager/loader.cpp
+	src/ui/mainMenu.cpp
 )
