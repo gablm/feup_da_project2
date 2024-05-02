@@ -26,3 +26,7 @@ std::string Manager::getCurrentDatasetType() const {
 long Manager::getLoadTime() const {
 	return loadtime;
 }
+
+Graph Manager::getNetwork() const {
+	return network;
+}

@@ -38,16 +38,16 @@ void Manager::loadToy(int option)
 
             std::getline(ss, origin, ',');
             std::getline(ss, dest, ',');
-            std::getline(ss, distance, option == 2 ? ',' : '\r');
-            if (option == 2) 
+            std::getline(ss, distance, option == 3 ? ',' : '\r');
+            if (option == 3) 
 			{
 				std::getline(ss, label1, ',');
             	std::getline(ss, label2, '\r');
 			}
 			
-			int o = atoi(origin.c_str());
-			int d = atoi(dest.c_str());
-			int w = atoi(distance.c_str());
+			int o = std::stoi(origin);
+			int d = std::stoi(dest);
+			double w = std::stod(distance);
 			network.addVertex(o, label1);
 			network.addVertex(d, label2);
             network.addEdge(o, d, w);
@@ -58,6 +58,7 @@ void Manager::loadToy(int option)
 void Manager::loadDataset(DatasetType type, int option)
 {
 	auto start = std::chrono::high_resolution_clock::now();
+	network.resetGraph();
 	switch (type) {
 		case none:
 			return;

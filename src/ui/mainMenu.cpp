@@ -56,7 +56,29 @@ void UI::mainMenu()
 				case 'C':
 					selectorMenu();
 					break;
+				case 't':
+				case 'T':
+					testManager();
+					break;
 			}
 		}
     }
+}
+
+void UI::testManager() 
+{
+	CLEAR;
+	std::string str;
+		
+	for (auto m : manager.getNetwork().getVertexSet())
+	{
+		std::cout << m->getId() << " " << m->getInfo() << "\n";
+		for (auto e : m->getAdj())
+		{
+			std::cout << " - " << e->getDest()->getId() 
+			<< " (" << e->getWeight() << ")\n";
+		}
+	}
+
+	while (std::cin.get() != '\n') { }
 }

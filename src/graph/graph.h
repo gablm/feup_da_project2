@@ -104,7 +104,7 @@ public:
 
     int getNumVertex() const;
     std::vector<Vertex *> getVertexSet() const;
-	std::unordered_map<int, Vertex *> getVertexMap() const;
+	void resetGraph();
 protected:
     std::vector<Vertex *> vertexSet;
 	std::unordered_map<int, Vertex *> vertexMap;

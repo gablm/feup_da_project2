@@ -29,6 +29,7 @@ class Manager {
 	public:
 		std::string getCurrentDatasetType() const;
 		long getLoadTime() const;
+		Graph getNetwork() const;
 
 		void loadDataset(DatasetType type, int option = -1);
 		void loadToy(int option);

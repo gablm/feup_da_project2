@@ -276,3 +276,13 @@ bool Graph::addBidirectionalEdge(int sourc, int dest, double w) {
     e2->setReverse(e1);
     return true;
 }
+
+void Graph::resetGraph() {
+	for (auto v : vertexSet) {
+		for (auto e : v->getAdj())
+			delete e;
+		delete v;
+	}
+	vertexSet.clear();
+	vertexMap.clear();
+}

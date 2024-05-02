@@ -15,6 +15,8 @@ class UI {
 	private:
 		Manager manager;
 	public:
+		void testManager();
+
 		void mainMenu();
 		void selectorMenu();
 
