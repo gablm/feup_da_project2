@@ -28,6 +28,7 @@ class Manager {
 		Graph network;
 	public:
 		std::string getCurrentDatasetType() const;
+		bool isAnyDataSetLoaded() const;
 		long getLoadTime() const;
 		Graph getNetwork() const;
 

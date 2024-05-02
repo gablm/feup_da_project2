@@ -16,10 +16,12 @@ class UI {
 		Manager manager;
 	public:
 		void testManager();
+		static void showMessage(std::string header, std::string body);
 
 		void mainMenu();
 		void selectorMenu();
-
+		void pointSelMenu(int type);
+		void resultMenu(int type);
 };
 
 #endif

@@ -45,12 +45,16 @@ void UI::mainMenu()
 					exit(0);
 					break;
 				case '1':
-					break;
 				case '2':
-					break;
 				case '3':
-					break;
 				case '4':
+					if (manager.isAnyDataSetLoaded())
+						pointSelMenu(str[0] - '0');
+					else
+						showMessage(
+							"NO DATASET WAS SELECTED",
+							"Select a dataset in the main menu with the 'c' command."
+						);
 					break;
 				case 'c':
 				case 'C':
@@ -80,5 +84,17 @@ void UI::testManager()
 		}
 	}
 
+	while (std::cin.get() != '\n') { }
+}
+
+void UI::showMessage(std::string header, std::string body)
+{
+	CLEAR;
+	std::cout 
+	<< header << "\n"
+	<< "\n"
+	<< body << "\n"
+	<< "\n"
+	<< "CLICK ENTER TO CONTINUE...\n";
 	while (std::cin.get() != '\n') { }
 }

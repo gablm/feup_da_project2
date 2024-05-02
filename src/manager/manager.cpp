@@ -30,3 +30,7 @@ long Manager::getLoadTime() const {
 Graph Manager::getNetwork() const {
 	return network;
 }
+
+bool Manager::isAnyDataSetLoaded() const {
+	return dType != none;
+}
