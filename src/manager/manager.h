@@ -23,6 +23,13 @@ enum DatasetType {
 	extra
 };
 
+class ReturnDataTSP {
+	long processingTime;
+	std::vector<int> stops;
+	std::vector<double> distances;
+	long totalDistance;
+};
+
 class Manager {
 	private:
 		DatasetType dType = none;

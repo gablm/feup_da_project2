@@ -49,7 +49,7 @@ void UI::mainMenu()
 				case '3':
 				case '4':
 					if (manager.isAnyDataSetLoaded())
-						pointSelMenu(str[0] - '0');
+						resultMenu(str[0] - '0');
 					else
 						showMessage(
 							"NO DATASET WAS SELECTED",
