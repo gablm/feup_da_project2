@@ -1,9 +1,5 @@
 #include "ui/ui.h"
 
-#ifdef _WIN32
-#include "windows.h"
-#endif
-
 /**
  * Sets the console output mode to UTF8 if the platform is windows.
  * Calls the dataset selection menu.

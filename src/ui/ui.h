@@ -20,6 +20,7 @@ class UI {
 
 		void mainMenu();
 		void selectorMenu();
+		void loaderScreen(DatasetType type, int option);
 		void pointSelMenu(int type);
 		void resultMenu(int type);
 };

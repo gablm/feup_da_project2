@@ -5,9 +5,13 @@
 #include <string>
 
 #ifdef __linux__
+# include <unistd.h>
 # define CLEAR (void)system("clear")
+# define PAUSE(x) usleep(x * 1000)
 #else
+# include <windows.h>
 # define CLEAR (void)system("cls")
+# define PAUSE(x) Sleep(x);
 #endif
 
 enum DatasetType {

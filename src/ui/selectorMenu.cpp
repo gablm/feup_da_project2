@@ -1,4 +1,5 @@
 #include "ui.h"
+#include <iomanip>
 
 void UI::selectorMenu()
 {
@@ -41,21 +42,21 @@ void UI::selectorMenu()
 			int num = atoi(str.substr(2).c_str());
 			if (num == 0) continue;
 			if (num % 100 == 0 || (num < 100 && num % 25 == 0))
-				return manager.loadDataset(extra, num);
+				return loaderScreen(extra, num);
 		}
 
 		if (str == "1 1")
-			return manager.loadDataset(toy_shipping, -1);
+			return loaderScreen(toy_shipping, -1);
 		if (str == "1 2")
-			return manager.loadDataset(toy_stadiums, -1);
+			return loaderScreen(toy_stadiums, -1);
 		if (str == "1 3")
-			return manager.loadDataset(toy_tourism, -1);
+			return loaderScreen(toy_tourism, -1);
 		if (str == "3 1")
-			return manager.loadDataset(real_world, 1);
+			return loaderScreen(real_world, 1);
 		if (str == "3 2")
-			return manager.loadDataset(real_world, 2);
+			return loaderScreen(real_world, 2);
 		if (str == "3 3")
-			return manager.loadDataset(real_world, 3);
+			return loaderScreen(real_world, 3);
 		
 		if (str == "q" || str == "Q")
 		{
@@ -65,4 +66,30 @@ void UI::selectorMenu()
 
 		if (str == "b" || str == "B") return;
     }
+}
+
+void thrLoadScreen(bool *active)
+{
+	auto start = std::chrono::high_resolution_clock::now();
+	CLEAR;
+	std::cout 
+	<< "Loading Dataset...\n";
+	while (*active)
+	{
+		auto now = std::chrono::high_resolution_clock::now();
+		auto elapsed = std::chrono::duration<double>(now - start).count();
+		std::cout << "\rTime elapsed: " << std::fixed << std::setprecision(2) << elapsed << "s";
+		PAUSE(100);
+	}
+
+}
+
+#include <thread>
+void UI::loaderScreen(DatasetType type, int option)
+{
+	bool active = true;
+	std::thread loader = std::thread(thrLoadScreen, &active);
+	manager.loadDataset(type, option);
+	active = false;
+	loader.join();
 }
