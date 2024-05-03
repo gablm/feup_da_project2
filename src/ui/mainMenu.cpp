@@ -76,7 +76,7 @@ void UI::testManager()
 		
 	for (auto m : manager.getNetwork().getVertexSet())
 	{
-		std::cout << m->getId() << " " << m->getInfo() << "\n";
+		std::cout << m->getId() << " " << m->getInfo().toStr() << "\n";
 		for (auto e : m->getAdj())
 		{
 			std::cout << " - " << e->getDest()->getId() 

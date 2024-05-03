@@ -33,7 +33,11 @@ class Manager {
 		Graph getNetwork() const;
 
 		void loadDataset(DatasetType type, int option = -1);
-		void loadToy(int option);
+		void loadToy(unsigned option);
+		void loadExtra(unsigned option);
+		void loadRealWorld(unsigned option);
+
+		void loadBig(std::string nodes, std::string edges, bool skipFirstRow, long rowCount);
 };
 
 #endif

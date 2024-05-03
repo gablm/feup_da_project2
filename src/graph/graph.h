@@ -15,16 +15,30 @@ class Graph;
 
 #define INF std::numeric_limits<double>::max()
 
+/************************* Info  **************************/
+
+class Info {
+public:
+	double longt = -1;
+	double lat = -1;
+	std::string label;
+
+	Info();
+	Info(std::string label);
+	Info(double longt, double lat);
+	std::string toStr();
+};
+
 /************************* Vertex  **************************/
 
 class Vertex {
 public:
     Vertex(int id);
-	Vertex(int id, std::string info);
+	Vertex(int id, Info info);
     bool operator<(Vertex& vertex) const;
 
 	int getId() const;
-    std::string getInfo() const;
+    Info getInfo() const;
     std::vector<Edge *> getAdj() const;
     bool isVisited() const;
     bool isProcessing() const;
@@ -46,7 +60,7 @@ public:
 	
 protected:
 	int id;
-    std::string info;
+    Info info;
     std::vector<Edge *> adj;
 
     bool visited = false;
@@ -64,11 +78,12 @@ protected:
 
 class Edge {
 public:
-    Edge(Vertex *orig, Vertex *dest, double w);
+    Edge(Vertex *orig, Vertex *dest, double w, bool initial = true);
 
     Vertex *getDest() const;
     double getWeight() const;
     bool isSelected() const;
+	bool isInitial() const;
     Vertex *getOrig() const;
     Edge *getReverse() const;
     double getFlow() const;
@@ -82,6 +97,7 @@ protected:
     Vertex *dest;
     double weight;
 
+	bool initial = false;
     bool selected = false;
     Edge *reverse = nullptr;
 
@@ -95,7 +111,7 @@ public:
     ~Graph();
 
     Vertex *findVertex(int in) const;
-    bool addVertex(int in, std::string info);
+    bool addVertex(int in, Info info);
     bool removeVertex(int in);
 
     bool addEdge(int sourc, int dest, double w);

@@ -1,9 +1,24 @@
 #include "graph.h"
+#include <sstream>
 
-/************************* Vertex  **************************/
+/************************* Info **************************/
+
+Info::Info() {}
+Info::Info(std::string label) : label(label) {}
+Info::Info(double longt, double lat) : longt(longt), lat(lat) {}
+std::string Info::toStr() {
+	if (lat != -1 && longt != -1) {
+		std::ostringstream out;
+		out << longt << ", " << lat;
+		return out.str();
+	}
+	return label;
+}
+
+/************************* Vertex **************************/
 
 Vertex::Vertex(int id) : id(id) {}
-Vertex::Vertex(int id, std::string info) : id(id), info(info) {}
+Vertex::Vertex(int id, Info info) : id(id), info(info) {}
 
 /*
  * Auxiliary function to add an outgoing edge to a vertex (this),
@@ -59,7 +74,7 @@ int Vertex::getId() const {
     return this->id;
 }
 
-std::string Vertex::getInfo() const {
+Info Vertex::getInfo() const {
     return this->info;
 }
 
@@ -124,7 +139,7 @@ void Vertex::deleteEdge(Edge *edge) {
     // Remove the corresponding edge from the incoming list
     auto it = dest->incoming.begin();
     while (it != dest->incoming.end()) {
-        if ((*it)->getOrig()->getInfo() == info) {
+        if ((*it)->getOrig()->getId() == id) {
             it = dest->incoming.erase(it);
         }
         else {
@@ -136,7 +151,8 @@ void Vertex::deleteEdge(Edge *edge) {
 
 /********************** Edge  ****************************/
 
-Edge::Edge(Vertex *orig, Vertex *dest, double w): orig(orig), dest(dest), weight(w) {}
+Edge::Edge(Vertex *orig, Vertex *dest, double w, bool initial)
+	: orig(orig), dest(dest), weight(w), initial(initial) {}
 
 Vertex *Edge::getDest() const {
     return this->dest;
@@ -156,6 +172,10 @@ Edge *Edge::getReverse() const {
 
 bool Edge::isSelected() const {
     return this->selected;
+}
+
+bool Edge::isInitial() const {
+    return this->initial;
 }
 
 double Edge::getFlow() const {
@@ -207,11 +227,11 @@ Vertex *Graph::findVertex(int id) const {
  *  Adds a vertex with a given content or info (in) to a graph (this).
  *  Returns true if successful, and false if a vertex with that content already exists.
  */
-bool Graph::addVertex(int id, std::string info) {
+bool Graph::addVertex(int id, Info info) {
 	if (findVertex(id) != nullptr)
     	return false;
 	
-	Vertex *vtx = info == "" ? new Vertex(id) : new Vertex(id, info);
+	Vertex *vtx = new Vertex(id, info);
 	vertexMap[id] = vtx;
 	vertexSet.push_back(vtx);
 	return true;
