@@ -1,7 +1,12 @@
 #include "manager.h"
 #include <sstream>
 
-std::string Manager::getCurrentDatasetType() const {
+Manager::~Manager() {
+	network.resetGraph();
+}
+
+std::string Manager::getCurrentDatasetType() const
+{
 	std::ostringstream out;
 	switch (dType) {
 		case none:
