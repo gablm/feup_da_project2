@@ -23,8 +23,8 @@ enum DatasetType {
 	extra
 };
 
-class ReturnDataTSP {
-	long processingTime;
+struct ReturnDataTSP {
+	double processingTime;
 	std::vector<int> stops;
 	std::vector<double> distances;
 	long totalDistance;
@@ -39,7 +39,7 @@ class Manager {
 		Graph network;
 	public:
 		~Manager();
-		
+
 		std::string getCurrentDatasetType() const;
 		bool isAnyDataSetLoaded() const;
 		long getLoadTime() const;
