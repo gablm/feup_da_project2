@@ -14,6 +14,9 @@
 # define PAUSE(x) Sleep(x);
 #endif
 
+/**
+ * Dataset types
+*/
 enum DatasetType {
 	none,
 	toy_shipping,
@@ -23,13 +26,28 @@ enum DatasetType {
 	extra
 };
 
+/**
+ * Represents the return struct for the TSP heuristics.
+*/
 struct ReturnDataTSP {
+	/** Time it took to generate final path. */
 	double processingTime;
+	/** Stops by order of the path. */
 	std::vector<int> stops;
+	/** 
+	 * Distances between stops in order. 
+	 * Its lenght should be less one than the stop's lenght.
+	*/
 	std::vector<double> distances;
+	/** Total distance of the path. */
 	long totalDistance;
 };
 
+/**
+ * Contains the methods to load the datasets into a graph 
+ * and operate over it in order to (try to) generate 
+ * the best path passing in all its vertexes (TSP) 
+*/
 class Manager {
 	private:
 		DatasetType dType = none;

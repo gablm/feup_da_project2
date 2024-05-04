@@ -1,6 +1,10 @@
 #include "ui.h"
+#include <thread>
 #include <iomanip>
 
+/**
+ * Shows a menu for dataset selection. Upon selection, the manager is called to load it.
+*/
 void UI::selectorMenu()
 {
 	while (1)
@@ -68,6 +72,10 @@ void UI::selectorMenu()
     }
 }
 
+/**
+ * Function used in a secondary thread to show the time elapsed during load.
+ * @param active Bool used to indicated if the load is still ongoing. The function returns when active is set to false.
+*/
 void thrLoadScreen(bool *active)
 {
 	auto start = std::chrono::high_resolution_clock::now();
@@ -78,13 +86,17 @@ void thrLoadScreen(bool *active)
 	{
 		auto now = std::chrono::high_resolution_clock::now();
 		auto elapsed = std::chrono::duration<double>(now - start).count();
-		std::cout << "\rTime elapsed: " << std::fixed << std::setprecision(2) << elapsed << "s";
+		std::cout << "\r\rTime elapsed: " << std::fixed << std::setprecision(2) << elapsed << "s\n";
 		PAUSE(100);
 	}
 
 }
 
-#include <thread>
+/**
+ * Shows a loading screen via a thread and calls the manager to load a dataset.
+ * @param type Dataset type
+ * @param option Required by some types to identify a single dataset.
+*/
 void UI::loaderScreen(DatasetType type, int option)
 {
 	bool active = true;

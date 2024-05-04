@@ -49,7 +49,7 @@ void UI::mainMenu()
 				case '3':
 				case '4':
 					if (manager.isAnyDataSetLoaded())
-						resultMenu(str[0] - '0');
+						resultMenu(static_cast<HeuristicType>(str[0] - '0'));
 					else
 						showMessage(
 							"NO DATASET WAS SELECTED",
@@ -69,6 +69,11 @@ void UI::mainMenu()
     }
 }
 
+/**
+ * Hidden menu.
+ * Outputs the information stored in a graph for testing purposes.
+ * @note Complexity: O(V + E)
+*/
 void UI::testManager() 
 {
 	CLEAR;
@@ -87,6 +92,12 @@ void UI::testManager()
 	while (std::cin.get() != '\n') { }
 }
 
+/**
+ * Clears the screen and shows a message to the user.
+ * After waits for the user to press enter.
+ * @param header Message header. Separated from the body by an empty line.
+ * @param body Message body. Separated below by a empty line from a "CLICK ENTER TO CONTINUE..." message.
+*/
 void UI::showMessage(std::string header, std::string body)
 {
 	CLEAR;

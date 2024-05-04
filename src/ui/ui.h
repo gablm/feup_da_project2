@@ -4,6 +4,10 @@
 #include "../manager/manager.h"
 #include <chrono>
 
+/**
+ * Identifies the heuristic for the 
+ * Travelling Salesman Problem "solution".
+*/
 enum HeuristicType {
 	backtracking_2_1,
 	triangular_approximation_2_2,
@@ -11,6 +15,10 @@ enum HeuristicType {
 	real_world_2_4
 };
 
+/**
+ * Contains the methods to display the CLI 
+ * and the manager contains all the information.
+*/
 class UI {
 	private:
 		Manager manager;
@@ -21,7 +29,7 @@ class UI {
 		void mainMenu();
 		void selectorMenu();
 		void loaderScreen(DatasetType type, int option);
-		void resultMenu(int type);
+		void resultMenu(HeuristicType type);
 };
 
 #endif

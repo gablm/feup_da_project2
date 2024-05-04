@@ -1,10 +1,18 @@
 #include "manager.h"
 #include <sstream>
 
+/**
+ * Default destructor.
+ * Deletes the allocated memory in the graph.
+ * @note Complexity: O(V + E) 
+*/
 Manager::~Manager() {
 	network.resetGraph();
 }
 
+/**
+ * Returns the current dataset type as a formatted string.
+*/
 std::string Manager::getCurrentDatasetType() const
 {
 	std::ostringstream out;
@@ -28,14 +36,23 @@ std::string Manager::getCurrentDatasetType() const
 	};
 }
 
+/**
+ * Returns the time taken to load the current dataset.
+*/
 long Manager::getLoadTime() const {
 	return loadtime;
 }
 
+/**
+ * Returns the graph for the current dataset.
+*/
 Graph Manager::getNetwork() const {
 	return network;
 }
 
+/**
+ * Returns true if there is any dataset loaded.
+*/
 bool Manager::isAnyDataSetLoaded() const {
 	return dType != none;
 }

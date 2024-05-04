@@ -5,6 +5,11 @@
 #include <chrono>
 #include <thread>
 
+/**
+ * Loads a dataset of type Toy
+ * @param option Which toy dataset [1 = shipping, 2 = stadiums, 3 = tourism]
+ * @note Complexity: O(E)
+*/
 void Manager::loadToy(unsigned option)
 {
 	std::string fileName;
@@ -57,6 +62,11 @@ void Manager::loadToy(unsigned option)
     }
 }
 
+/**
+ * Loads a dataset of type extra.
+ * @note Complexity: O(V + E)
+ * @param option Amount of edges
+*/
 void Manager::loadExtra(unsigned option)
 {
 	std::string nodes = "../datasets/extra_fully_connected/nodes.csv";
@@ -65,6 +75,11 @@ void Manager::loadExtra(unsigned option)
 	loadBig(nodes, edges.str(), true, option);
 }
 
+/**
+ * Loads a dataset of type real_world
+ * @note Complexity: O(V + E)
+ * @param option Graph number [1-3]
+*/
 void Manager::loadRealWorld(unsigned option)
 {
 	std::ostringstream path;
@@ -74,6 +89,14 @@ void Manager::loadRealWorld(unsigned option)
 	loadBig(nodes, edges, false, -1);
 }
 
+/**
+ * Reads and loads a graph based in two files containing edges and nodes.
+ * @note Complexity: O(V + E)
+ * @param nodes Path to the Nodes file.
+ * @param edges Path to the Edges file.
+ * @param skipFirstRow If false, the first line of the edges file won't be skipped.
+ * @param rowCount Amount of nodes to read from nodes file. -1 means all.
+*/
 void Manager::loadBig(std::string nodes, std::string edges, bool skipFirstRow, long rowCount = -1)
 {
 	std::ifstream file = std::ifstream(nodes);
@@ -137,6 +160,13 @@ void Manager::loadBig(std::string nodes, std::string edges, bool skipFirstRow, l
     }
 }
 
+/**
+ * Calls the appropriate loader function given the dataset.
+ * Also calculates the time the system took to load it.
+ * @note Complexity: O(V + E)
+ * @param type Type of the dataset to load
+ * @param option defaults to -1. It is required to select a specific dataset of types RealWorld and Extra
+*/
 void Manager::loadDataset(DatasetType type, int option)
 {
 	auto start = std::chrono::high_resolution_clock::now();

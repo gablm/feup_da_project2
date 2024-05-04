@@ -6,6 +6,11 @@
 Info::Info() {}
 Info::Info(std::string label) : label(label) {}
 Info::Info(double longt, double lat) : longt(longt), lat(lat) {}
+
+/** 
+ * Converts the Vertex Information to string.
+ * If latitude and longitude are -1, the label will be returned.
+*/
 std::string Info::toStr() {
 	if (lat != -1 && longt != -1) {
 		std::ostringstream out;
@@ -297,6 +302,10 @@ bool Graph::addBidirectionalEdge(int sourc, int dest, double w) {
     return true;
 }
 
+/**
+ * Erases all vertexes and edges from the graph.
+ * @note Complexity: O(V + E)
+*/
 void Graph::resetGraph() {
 	for (auto v : vertexSet) {
 		for (auto e : v->getAdj())
