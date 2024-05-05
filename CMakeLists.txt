@@ -13,6 +13,11 @@ add_executable(da_project2
 	src/graph/graph.cpp
 	src/manager/loader.cpp
 	src/manager/manager.cpp
+	src/manager/tspCaller.cpp
+	src/manager/heuristics/backtrack.cpp
+	src/manager/heuristics/triagApprox.cpp
+	src/manager/heuristics/other.cpp
+	src/manager/heuristics/realworld.cpp
 	src/ui/mainMenu.cpp
 	src/ui/selectorMenu.cpp
 	src/ui/resultMenu.cpp
