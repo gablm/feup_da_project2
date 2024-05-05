@@ -5,17 +5,6 @@
 #include <chrono>
 
 /**
- * Identifies the heuristic for the 
- * Travelling Salesman Problem "solution".
-*/
-enum HeuristicType {
-	backtracking_2_1,
-	triangular_approximation_2_2,
-	other_2_3,
-	real_world_2_4
-};
-
-/**
  * Contains the methods to display the CLI 
  * and the manager contains all the information.
 */

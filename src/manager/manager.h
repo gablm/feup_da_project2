@@ -27,6 +27,17 @@ enum DatasetType {
 };
 
 /**
+ * Identifies the heuristic for the 
+ * Travelling Salesman Problem "solution".
+*/
+enum HeuristicType {
+	backtracking_2_1,
+	triangular_approximation_2_2,
+	other_2_3,
+	real_world_2_4
+};
+
+/**
  * Represents the return struct for the TSP heuristics.
 */
 struct ReturnDataTSP {
@@ -63,6 +74,8 @@ class Manager {
 		long getLoadTime() const;
 		Graph getNetwork() const;
 
+		// Loaders
+
 		void loadDataset(DatasetType type, int option = -1);
 		void loadToy(unsigned option);
 		void loadExtra(unsigned option);
@@ -70,6 +83,15 @@ class Manager {
 
 		void loadBig(std::string nodes, std::string edges, bool skipFirstRow, 
 			bool assumeBidirectional, long rowCount);
+
+		// Heuristics
+
+		ReturnDataTSP tspCaller(HeuristicType type);
+
+		ReturnDataTSP backtrackingHeuristic();
+		ReturnDataTSP triangularApproximationHeuristic();
+		ReturnDataTSP otherHeuristic();
+		ReturnDataTSP realWorldHeuristic();
 };
 
 #endif
