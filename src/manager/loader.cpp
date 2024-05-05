@@ -57,7 +57,7 @@ void Manager::loadToy(unsigned option)
 			double w = std::stod(distance);
 			network.addVertex(o, Info(label1));
 			network.addVertex(d, Info(label2));
-            network.addEdge(o, d, w);
+            network.addBidirectionalEdge(o, d, w);
         }
     }
 }
@@ -72,7 +72,7 @@ void Manager::loadExtra(unsigned option)
 	std::string nodes = "../datasets/extra_fully_connected/nodes.csv";
 	std::ostringstream edges;
 	edges << "../datasets/extra_fully_connected/edges_" << option << ".csv";
-	loadBig(nodes, edges.str(), true, option);
+	loadBig(nodes, edges.str(), true, true, option);
 }
 
 /**
@@ -86,7 +86,7 @@ void Manager::loadRealWorld(unsigned option)
 	path << "../datasets/real_world/graph" << option << "/";
 	std::string nodes = path.str() + "nodes.csv";
 	std::string edges = path.str() + "edges.csv";
-	loadBig(nodes, edges, false, -1);
+	loadBig(nodes, edges, false, false, -1);
 }
 
 /**
@@ -95,9 +95,11 @@ void Manager::loadRealWorld(unsigned option)
  * @param nodes Path to the Nodes file.
  * @param edges Path to the Edges file.
  * @param skipFirstRow If false, the first line of the edges file won't be skipped.
+ * @param assumeBidirectional If true, each edge is assumed as bidirectional.
  * @param rowCount Amount of nodes to read from nodes file. -1 means all.
 */
-void Manager::loadBig(std::string nodes, std::string edges, bool skipFirstRow, long rowCount = -1)
+void Manager::loadBig(std::string nodes, std::string edges, bool skipFirstRow, 
+	bool assumeBidirectional, long rowCount = -1)
 {
 	std::ifstream file = std::ifstream(nodes);
 
@@ -155,7 +157,10 @@ void Manager::loadBig(std::string nodes, std::string edges, bool skipFirstRow, l
 			int s = std::stoi(sourc);
 			int d = std::stod(dest);
 			double w = std::stod(dist);
-			network.addEdge(s, d, w);
+			if (assumeBidirectional)
+				network.addBidirectionalEdge(s, d, w);
+			else
+				network.addEdge(s, d, w);
         }
     }
 }

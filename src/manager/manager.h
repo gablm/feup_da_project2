@@ -68,7 +68,8 @@ class Manager {
 		void loadExtra(unsigned option);
 		void loadRealWorld(unsigned option);
 
-		void loadBig(std::string nodes, std::string edges, bool skipFirstRow, long rowCount);
+		void loadBig(std::string nodes, std::string edges, bool skipFirstRow, 
+			bool assumeBidirectional, long rowCount);
 };
 
 #endif
