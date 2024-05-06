@@ -1,9 +1,5 @@
 #include "manager.h"
 #include "../ui/ui.h"
-#include <fstream>
-#include <sstream>
-#include <chrono>
-#include <thread>
 
 /**
  * Loads a dataset of type Toy

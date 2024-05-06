@@ -3,6 +3,7 @@
 
 #include "../manager/manager.h"
 #include <chrono>
+#include <iomanip>
 
 /**
  * Contains the methods to display the CLI 

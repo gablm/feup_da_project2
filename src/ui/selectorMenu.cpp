@@ -1,6 +1,5 @@
 #include "ui.h"
-#include <thread>
-#include <iomanip>
+
 
 /**
  * Shows a menu for dataset selection. Upon selection, the manager is called to load it.

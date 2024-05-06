@@ -1,5 +1,4 @@
 #include "manager.h"
-#include <sstream>
 
 /**
  * Default destructor.

@@ -3,6 +3,10 @@
 
 #include "../graph/graph.h"
 #include <string>
+#include <chrono>
+#include <fstream>
+#include <sstream>
+#include <thread>
 
 #ifdef __linux__
 # include <unistd.h>
@@ -43,15 +47,18 @@ enum HeuristicType {
 struct ReturnDataTSP {
 	/** Time it took to generate final path. */
 	double processingTime;
+	
 	/** Stops by order of the path. */
 	std::vector<int> stops;
+	
 	/** 
 	 * Distances between stops in order. 
 	 * Its lenght should be less one than the stop's lenght.
 	*/
 	std::vector<double> distances;
+	
 	/** Total distance of the path. */
-	long totalDistance;
+	double totalDistance;
 };
 
 /**
