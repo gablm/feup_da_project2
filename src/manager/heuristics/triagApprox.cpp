@@ -2,8 +2,6 @@
 
 ReturnDataTSP Manager::triangularApproximationHeuristic()
 {
-	if (dType == real_world) return {-1, {}, {}, -1};
-
 	auto start = std::chrono::high_resolution_clock::now();
 	double totalDistance = 0;
 	std::vector<int> stops;
