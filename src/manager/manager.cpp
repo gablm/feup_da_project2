@@ -55,3 +55,10 @@ Graph Manager::getNetwork() const {
 bool Manager::isAnyDataSetLoaded() const {
 	return dType != none;
 }
+
+/**
+ * Returns true if the graph is fully connected.
+*/
+bool Manager::isFullyConnected() const {
+	return fullyConnected;
+}

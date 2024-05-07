@@ -19,7 +19,7 @@ class Graph;
 
 class Info {
 public:
-	double longt = -1;
+	double lon = -1;
 	double lat = -1;
 	std::string label;
 

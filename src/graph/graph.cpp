@@ -5,16 +5,16 @@
 
 Info::Info() {}
 Info::Info(std::string label) : label(label) {}
-Info::Info(double longt, double lat) : longt(longt), lat(lat) {}
+Info::Info(double longt, double lat) : lon(longt), lat(lat) {}
 
 /** 
  * Converts the Vertex Information to string.
  * If latitude and longitude are -1, the label will be returned.
 */
 std::string Info::toStr() {
-	if (lat != -1 && longt != -1) {
+	if (lat != -1 && lon != -1) {
 		std::ostringstream out;
-		out << longt << ", " << lat;
+		out << lon << ", " << lat;
 		return out.str();
 	}
 	return label;

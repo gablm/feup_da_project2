@@ -18,6 +18,7 @@ add_executable(da_project2
 	src/manager/heuristics/triagApprox.cpp
 	src/manager/heuristics/other.cpp
 	src/manager/heuristics/realworld.cpp
+	src/manager/heuristics/utils.cpp
 	src/ui/mainMenu.cpp
 	src/ui/selectorMenu.cpp
 	src/ui/resultMenu.cpp

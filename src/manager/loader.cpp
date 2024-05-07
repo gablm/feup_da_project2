@@ -205,4 +205,5 @@ void Manager::loadDataset(DatasetType type, int option)
 	loadtime = std::chrono::duration<double>(end - start).count();
 	this->dType = type;
 	this->option = option;
+	this->fullyConnected = Manager::isGraphFullyConnected(network);
 }

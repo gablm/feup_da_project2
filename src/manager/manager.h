@@ -73,11 +73,13 @@ class Manager {
 		long loadtime = -1;
 
 		Graph network;
+		bool fullyConnected = true;
 	public:
 		~Manager();
 
 		std::string getCurrentDatasetType() const;
 		bool isAnyDataSetLoaded() const;
+		bool isFullyConnected() const;
 		long getLoadTime() const;
 		Graph getNetwork() const;
 
@@ -99,6 +101,13 @@ class Manager {
 		ReturnDataTSP triangularApproximationHeuristic();
 		ReturnDataTSP otherHeuristic();
 		ReturnDataTSP realWorldHeuristic();
+
+		// HeuristicUtils
+
+		double haversineDistance(Info pos1, Info pos2);
+		double haversineDistance(double lat1, double lon1,
+			double lat2, double lon2);
+		static bool isGraphFullyConnected(Graph &graph);
 };
 
 #endif

@@ -23,6 +23,9 @@ void UI::mainMenu()
 		
 		if (manager.getLoadTime() != -1)
 			std::cout << " (loaded in " << manager.getLoadTime() << "s)";
+		
+		if (!manager.isFullyConnected() && manager.isAnyDataSetLoaded())
+		std::cout << "\nWARNING: The graph is not fully connected.\n";
 
 		std::cout
 		<< "\n"
