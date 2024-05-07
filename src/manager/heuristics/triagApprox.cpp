@@ -11,3 +11,4 @@ ReturnDataTSP Manager::triangularApproximationHeuristic()
 	auto end = std::chrono::high_resolution_clock::now();
 	return {std::chrono::duration<double>(end - start).count(), stops, distances, totalDistance};
 }
+

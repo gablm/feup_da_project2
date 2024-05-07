@@ -8,6 +8,8 @@ void UI::mainMenu()
 {
 	while (1)
     {
+		bool notFullyConnected = !manager.isFullyConnected() && manager.isAnyDataSetLoaded();
+
         CLEAR;
         std::cout 
         << "Welcome!\n"
@@ -24,12 +26,16 @@ void UI::mainMenu()
 		if (manager.getLoadTime() != -1)
 			std::cout << " (loaded in " << manager.getLoadTime() << "s)";
 		
-		if (!manager.isFullyConnected() && manager.isAnyDataSetLoaded())
-		std::cout << "\nWARNING: The graph is not fully connected.\n";
+		if (notFullyConnected)
+		{
+			std::cout << "\nWARNING: The graph is not fully connected.\n";
+		}
+		
 
 		std::cout
 		<< "\n"
 		<< "[C] Change Dataset\n"
+		<< (notFullyConnected ? "[F] Fully connect graph\n" : "")
 		<< "\n"
 		<< "[Q] Exit\n"
 		<< "\n"
@@ -67,6 +73,10 @@ void UI::mainMenu()
 				case 'T':
 					testManager();
 					break;
+				case 'f':
+				case 'F':
+					manager.fullyConnectGraph();
+					break;
 			}
 		}
     }
@@ -84,7 +94,8 @@ void UI::testManager()
 		
 	for (auto m : manager.getNetwork().getVertexSet())
 	{
-		std::cout << m->getId() << " " << m->getInfo().toStr() << "\n";
+		std::cout << m->getId() << " " << m->getInfo().toStr() 
+			<< " (" << m->getAdj().size() << " edges)\n";
 		for (auto e : m->getAdj())
 		{
 			std::cout << " - " << e->getDest()->getId() 

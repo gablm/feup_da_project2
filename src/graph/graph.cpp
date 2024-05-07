@@ -32,6 +32,7 @@ Vertex::Vertex(int id, Info info) : id(id), info(info) {}
 Edge *Vertex::addEdge(Vertex *d, double w) {
     auto newEdge = new Edge(this, d, w);
     adj.push_back(newEdge);
+	adjMap[d->getId()] = newEdge;
     d->incoming.push_back(newEdge);
     return newEdge;
 }
@@ -49,6 +50,7 @@ bool Vertex::removeEdge(int in) {
         Vertex *dest = edge->getDest();
         if (dest->getId() == in) {
             it = adj.erase(it);
+			adjMap.erase(in);
             deleteEdge(edge);
             removedEdge = true;
         }
@@ -67,8 +69,20 @@ void Vertex::removeOutgoingEdges() {
     while (it != adj.end()) {
         Edge *edge = *it;
         it = adj.erase(it);
+		adjMap.erase(edge->getDest()->getId());
         deleteEdge(edge);
     }
+}
+
+bool Vertex::isConnectedTo(Vertex *dest) const {
+	try
+	{
+		return adjMap.at(dest->id) != nullptr;
+	}
+	catch (const std::exception& e)
+	{
+		return false;
+	}
 }
 
 bool Vertex::operator<(Vertex & vertex) const {

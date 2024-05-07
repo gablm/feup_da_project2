@@ -107,7 +107,8 @@ class Manager {
 		double haversineDistance(Info pos1, Info pos2);
 		double haversineDistance(double lat1, double lon1,
 			double lat2, double lon2);
-		static bool isGraphFullyConnected(Graph &graph);
+		bool isGraphFullyConnected();
+		void fullyConnectGraph();
 };
 
 #endif
