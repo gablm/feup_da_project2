@@ -33,7 +33,9 @@ Edge *Vertex::addEdge(Vertex *d, double w) {
     auto newEdge = new Edge(this, d, w);
     adj.push_back(newEdge);
 	adjMap[d->getId()] = newEdge;
-    d->incoming.push_back(newEdge);
+    d->incomingBlock.lock();
+	d->incoming.push_back(newEdge);
+	d->incomingBlock.unlock();
     return newEdge;
 }
 
@@ -129,8 +131,8 @@ void Vertex::setId(int id) {
     this->id = id;
 }
 
-void Vertex::setInfo(std::string info) {
-    this->id = id;
+void Vertex::setInfo(Info info) {
+    this->info = info;
 }
 
 void Vertex::setVisited(bool visited) {

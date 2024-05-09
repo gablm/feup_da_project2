@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <unordered_map>
 #include <string>
+#include <mutex>
 
 class Edge;
 class Vertex;
@@ -48,7 +49,7 @@ public:
     std::vector<Edge *> getIncoming() const;
 
     void setId(int id);
-	void setInfo(std::string info);
+	void setInfo(Info info);
     void setVisited(bool visited);
     void setProcesssing(bool processing);
     void setIndegree(unsigned int indegree);
@@ -65,6 +66,7 @@ protected:
     Info info;
     std::vector<Edge *> adj;
 	std::unordered_map<int, Edge *> adjMap;
+	std::mutex incomingBlock;
 
     bool visited = false;
     bool processing = false;

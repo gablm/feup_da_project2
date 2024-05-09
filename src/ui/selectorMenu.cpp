@@ -85,7 +85,7 @@ void thrLoadScreen(bool *active)
 	{
 		auto now = std::chrono::high_resolution_clock::now();
 		auto elapsed = std::chrono::duration<double>(now - start).count();
-		std::cout << "\rTime elapsed: " << std::fixed << std::setprecision(1) << elapsed << "s";
+		std::cout << RESET << "Time elapsed: " << std::fixed << std::setprecision(1) << elapsed << "s";
 		PAUSE(100);
 	}
 

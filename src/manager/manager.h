@@ -7,15 +7,18 @@
 #include <fstream>
 #include <sstream>
 #include <thread>
+#include <iomanip>
 
 #ifdef __linux__
 # include <unistd.h>
 # define CLEAR (void)system("clear")
 # define PAUSE(x) usleep(x * 1000)
+# define RESET "\33[2K\r"
 #else
 # include <windows.h>
 # define CLEAR (void)system("cls")
 # define PAUSE(x) Sleep(x);
+# define RESET "\r"
 #endif
 
 /**
@@ -104,11 +107,13 @@ class Manager {
 
 		// HeuristicUtils
 
-		double haversineDistance(Info pos1, Info pos2);
-		double haversineDistance(double lat1, double lon1,
+		static double haversineDistance(Info pos1, Info pos2);
+		static double haversineDistance(double lat1, double lon1,
 			double lat2, double lon2);
+		static double to_radians(double num);
 		bool isGraphFullyConnected();
 		void fullyConnectGraph();
+
 };
 
 #endif
