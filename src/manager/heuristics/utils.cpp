@@ -92,18 +92,6 @@ void thrLoadScreen2(bool *active, long *vtxnumb, long total)
 	} while (*active);
 }
 
-void connectVertex(Vertex *vtx, std::vector<Vertex *> points)
-{
-	for (auto vtx2 : points)
-	{
-		if (vtx == vtx2) continue;
-		if (vtx->isConnectedTo(vtx2)) continue;
-		
-		double dist = Manager::haversineDistance(vtx->getInfo(), vtx2->getInfo());
-		vtx->addEdge(vtx2, dist);
-	}
-}
-
 /**
  * Fully connects graph.
  * @note Complexity: O(n ^ 2)
@@ -113,31 +101,22 @@ void Manager::fullyConnectGraph()
 	bool active = true;
 	long vtxnumb = 0;
 	size_t vertexCount = network.getNumVertex();
-	std::thread loader = 
-		std::thread(thrLoadScreen2, &active, &vtxnumb, vertexCount);
-	//std::vector<std::thread *> connectors;
+	std::thread loader = std::thread(thrLoadScreen2, 
+		&active, &vtxnumb, vertexCount);
+
 	for (auto vtx : network.getVertexSet())
 	{
 		vtxnumb++;
 		if (vtx->getAdj().size() == vertexCount - 1) continue;
 		for (auto vtx2 : network.getVertexSet())
 		{
-		if (vtx == vtx2) continue;
-		if (vtx->isConnectedTo(vtx2)) continue;
+			if (vtx == vtx2) continue;
+			if (vtx->isConnectedTo(vtx2)) continue;
 		
-		double dist = Manager::haversineDistance(vtx->getInfo(), vtx2->getInfo());
-		vtx->addEdge(vtx2, dist);
+			double dist = Manager::haversineDistance(vtx->getInfo(), vtx2->getInfo());
+			vtx->addEdge(vtx2, dist);
 		}
-		/*std::thread *connector = new std::thread(connectVertex, vtx, network.getVertexSet());
-		connectors.push_back(connector);*/
 	}
-
-	/*for (auto &thr : connectors)
-	{
-		vtxnumb++;
-		thr->join();
-		delete thr;
-	}*/
 
 	active = false;
 	loader.join();
