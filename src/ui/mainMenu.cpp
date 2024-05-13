@@ -58,7 +58,7 @@ void UI::mainMenu()
 				case '3':
 				case '4':
 					if (manager.isAnyDataSetLoaded())
-						resultMenu(static_cast<HeuristicType>(str[0] - '0'));
+						resultMenu(static_cast<HeuristicType>(str[0] - '0' - 1));
 					else
 						showMessage(
 							"NO DATASET WAS SELECTED",

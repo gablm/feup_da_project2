@@ -8,6 +8,7 @@
 #include <sstream>
 #include <thread>
 #include <iomanip>
+#include <set>
 
 #ifdef __linux__
 # include <unistd.h>
@@ -101,7 +102,10 @@ class Manager {
 		ReturnDataTSP tspCaller(HeuristicType type);
 
 		ReturnDataTSP backtrackingHeuristic();
+		
 		ReturnDataTSP triangularApproximationHeuristic();
+		void PrimMST(Vertex *base);
+
 		ReturnDataTSP otherHeuristic();
 		ReturnDataTSP realWorldHeuristic();
 

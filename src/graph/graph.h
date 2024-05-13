@@ -66,7 +66,6 @@ protected:
     Info info;
     std::vector<Edge *> adj;
 	std::unordered_map<int, Edge *> adjMap;
-	std::mutex incomingBlock;
 
     bool visited = false;
     bool processing = false;
