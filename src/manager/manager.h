@@ -11,7 +11,6 @@
 #include <set>
 
 #ifdef __linux__
-
 # include <unistd.h>
 # ifdef DEBUG
 #  define CLEAR std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
