@@ -11,13 +11,22 @@
 #include <set>
 
 #ifdef __linux__
+
 # include <unistd.h>
-# define CLEAR (void)system("clear")
+# ifdef DEBUG
+#  define CLEAR std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+# else
+#  define CLEAR (void)system("clear")
+# endif
 # define PAUSE(x) usleep(x * 1000)
 # define RESET "\33[2K\r"
 #else
 # include <windows.h>
+# ifdef DEBUG
+#  define CLEAR std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+# else
 # define CLEAR (void)system("cls")
+# endif
 # define PAUSE(x) Sleep(x);
 # define RESET "\r"
 #endif
