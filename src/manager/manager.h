@@ -125,7 +125,6 @@ class Manager {
 		static double to_radians(double num);
 		bool isGraphFullyConnected();
 		void fullyConnectGraph();
-
 };
 
 #endif

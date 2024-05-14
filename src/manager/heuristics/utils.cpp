@@ -111,7 +111,7 @@ void Manager::fullyConnectGraph()
 		for (auto vtx2 : network.getVertexSet())
 		{
 			if (vtx == vtx2) continue;
-			if (vtx->isConnectedTo(vtx2)) continue;
+			if (vtx->getEdgeTo(vtx2) != nullptr) continue;
 		
 			double dist = Manager::haversineDistance(vtx->getInfo(), vtx2->getInfo());
 			vtx->addEdge(vtx2, dist);

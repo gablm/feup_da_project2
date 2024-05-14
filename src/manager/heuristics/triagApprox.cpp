@@ -1,35 +1,68 @@
 #include "../manager.h"
 
+/**
+ * Creates a minimum span tree using Prim's Algorithm.
+ * @note Complexity: O(E log V)
+ * @param base Pointer to starting vertex.
+*/
 void Manager::PrimMST(Vertex *base)
 {
 	std::priority_queue<Vertex *> queue;
-	std::set<Vertex *> set;
 
+	base->setDist(0);
 	for (auto vtx : network.getVertexSet())
 	{
-		queue.emplace(vtx);
-		set.insert(vtx);
 		vtx->setPath(nullptr);
 		vtx->setVisited(false);
 		vtx->setDist(__DBL_MAX__);
 	}
-	base->setDist(0);
 
+	queue.push(base);
 	while (!queue.empty())
 	{
 		Vertex *u = queue.top();
 		queue.pop();
-		set.erase(u);
+		if (u->isVisited()) continue;
+		u->setVisited(true);
 
 		for (auto e : u->getAdj())
 		{
 			Vertex *v = e->getDest();
-			if (set.find(v) != set.end() && e->getWeight() < v->getDist())
+			if (!v->isVisited() && e->getWeight() < v->getDist())
 			{
 				v->setPath(e);
+				queue.push(v);
 				v->setDist(e->getWeight());
 			}
 		}
+	}
+}
+
+void dfs(Vertex *vtx, Vertex *last, std::vector<int> &stops, 
+	std::vector<double> &distances, double *total)
+{
+	vtx->setVisited(true);
+	stops.push_back(vtx->getId());
+
+	if (last != nullptr)
+	{
+		double dist = last->getEdgeTo(vtx)->getWeight();
+		distances.push_back(dist);
+		*total += dist;
+	}
+
+	if (vtx->getPath() != nullptr)
+	{
+		Vertex *v = vtx->getPath()->getOrig();
+		if (!v->isVisited())
+			dfs(v, vtx, stops, distances, total);
+	}
+	
+	for (auto edg : vtx->getAdj())
+	{
+		Vertex *v = edg->getDest();
+		if (v->isVisited()) continue;
+		dfs(v, vtx, stops, distances, total);
 	}
 }
 
@@ -42,16 +75,18 @@ ReturnDataTSP Manager::triangularApproximationHeuristic()
 	Vertex *base = network.getVertexSet().front();
 	PrimMST(base);
 
-	std::cout << base->getId() << "->" << "\n";
 	for (auto vtx : network.getVertexSet())
-	{
-		if (vtx->getPath() == nullptr) continue;
-		std::cout  
-		<< vtx->getPath()->getOrig()->getId() << "->";
-	}
+		vtx->setVisited(false);
 
-	std::cout << base->getId() << "\n";
-	while (std::cin.get() != '\n') {}
+	dfs(base, nullptr, stops, distances, &totalDistance);
+	Vertex *last = network.findVertex(stops.back());
+	stops.push_back(base->getId());
+	double lastDist = last->getEdgeTo(base)->getWeight();
+	distances.push_back(lastDist);
+	totalDistance += lastDist;
+
+	//std::cout << base->getId() << "\n";
+	//while (std::cin.get() != '\n') {}
 
 	auto end = std::chrono::high_resolution_clock::now();
 	return {std::chrono::duration<double>(end - start).count(), stops, distances, totalDistance};

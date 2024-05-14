@@ -59,7 +59,7 @@ public:
     bool removeEdge(int id);
     void removeOutgoingEdges();
 
-	bool isConnectedTo(Vertex *dest) const;
+	Edge *getEdgeTo(Vertex *dest) const;
 	
 protected:
 	int id;

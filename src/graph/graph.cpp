@@ -74,14 +74,14 @@ void Vertex::removeOutgoingEdges() {
     }
 }
 
-bool Vertex::isConnectedTo(Vertex *dest) const {
+Edge *Vertex::getEdgeTo(Vertex *dest) const {
 	try
 	{
-		return adjMap.at(dest->id) != nullptr;
+		return adjMap.at(dest->id);
 	}
 	catch (const std::exception& e)
 	{
-		return false;
+		return nullptr;
 	}
 }
 
