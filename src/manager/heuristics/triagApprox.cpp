@@ -76,6 +76,15 @@ ReturnDataTSP Manager::triangularApproximationHeuristic()
 	PrimMST(base);
 
 	for (auto vtx : network.getVertexSet())
+	{
+		std::cout << vtx->getId() << " goes to "  
+		<< (vtx->getPath() == nullptr ? -1 :
+			vtx->getPath()->getOrig()->getId()) << "\n";
+	}
+
+	std::cout << base->getId() << "\n";
+	while (std::cin.get() != '\n') {}
+	/*for (auto vtx : network.getVertexSet())
 		vtx->setVisited(false);
 
 	dfs(base, nullptr, stops, distances, &totalDistance);
@@ -83,7 +92,7 @@ ReturnDataTSP Manager::triangularApproximationHeuristic()
 	stops.push_back(base->getId());
 	double lastDist = last->getEdgeTo(base)->getWeight();
 	distances.push_back(lastDist);
-	totalDistance += lastDist;
+	totalDistance += lastDist;*/
 
 	auto end = std::chrono::high_resolution_clock::now();
 	return {std::chrono::duration<double>(end - start).count(), stops, distances, totalDistance};
