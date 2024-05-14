@@ -85,9 +85,6 @@ ReturnDataTSP Manager::triangularApproximationHeuristic()
 	distances.push_back(lastDist);
 	totalDistance += lastDist;
 
-	//std::cout << base->getId() << "\n";
-	//while (std::cin.get() != '\n') {}
-
 	auto end = std::chrono::high_resolution_clock::now();
 	return {std::chrono::duration<double>(end - start).count(), stops, distances, totalDistance};
 }
