@@ -49,7 +49,17 @@ Graph Manager::PrimMST(Vertex *base)
 	return mst;
 }
 
-void dfs(Vertex *vtx, Vertex *last, std::vector<int> &stops, 
+/**
+ * Depth-first search though a graph (in this case a Minimum-span tree), 
+ * calculating the distance between stops and saving them.
+ * @param vtx First vertex.
+ * @param last Vertex processed before, nullptr if vtx is the first.
+ * @param stops Vector to be filled with the stops
+ * @param distances Vector to be filled with the distances between stops
+ * @param total Pointer to a value where the total distance will be saved.
+ * @note Complexity: O(V + E) 
+*/
+void Manager::trianApproxDfs(Vertex *vtx, Vertex *last, std::vector<int> &stops, 
 	std::vector<double> &distances, double *total)
 {
 	vtx->setVisited(true);
@@ -67,10 +77,17 @@ void dfs(Vertex *vtx, Vertex *last, std::vector<int> &stops,
 	{
 		Vertex *v = edg->getDest();
 		if (v->isVisited()) continue;
-		dfs(v, vtx, stops, distances, total);
+		trianApproxDfs(v, vtx, stops, distances, total);
 	}
 }
 
+/**
+ * Uses a minimum-span tree (MST) to approximate the vertexes 
+ * and calculate a solution to the Salesman Travelling Problem.
+ * @note Complexity: O(V + E)
+ * @return Structure containing the time elapsed, vector with stops, 
+ * vector with distances between those stops (in order) and total distance travelled.
+*/
 ReturnDataTSP Manager::triangularApproximationHeuristic()
 {
 	auto start = std::chrono::high_resolution_clock::now();
@@ -84,7 +101,7 @@ ReturnDataTSP Manager::triangularApproximationHeuristic()
 		vtx->setVisited(false);
 
 	Vertex *mstBase = mst.findVertex(base->getId());
-	dfs(mstBase, nullptr, stops, distances, &totalDistance);
+	trianApproxDfs(mstBase, nullptr, stops, distances, &totalDistance);
 
 	Vertex *last = network.findVertex(stops.back());
 	stops.push_back(base->getId());

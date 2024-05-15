@@ -86,18 +86,9 @@ class Manager {
 
 		Graph network;
 		bool fullyConnected = true;
-	public:
-		~Manager();
-
-		std::string getCurrentDatasetType() const;
-		bool isAnyDataSetLoaded() const;
-		bool isFullyConnected() const;
-		long getLoadTime() const;
-		Graph getNetwork() const;
 
 		// Loaders
 
-		void loadDataset(DatasetType type, int option = -1);
 		void loadToy(unsigned option);
 		void loadExtra(unsigned option);
 		void loadRealWorld(unsigned option);
@@ -107,15 +98,27 @@ class Manager {
 
 		// Heuristics
 
-		ReturnDataTSP tspCaller(HeuristicType type);
-
 		ReturnDataTSP backtrackingHeuristic();
 		
 		ReturnDataTSP triangularApproximationHeuristic();
 		Graph PrimMST(Vertex *base);
+		void trianApproxDfs(Vertex *vtx, Vertex *last, std::vector<int> &stops, 
+			std::vector<double> &distances, double *total);
 
 		ReturnDataTSP otherHeuristic();
 		ReturnDataTSP realWorldHeuristic();
+
+	public:
+		~Manager();
+
+		std::string getCurrentDatasetType() const;
+		bool isAnyDataSetLoaded() const;
+		bool isFullyConnected() const;
+		long getLoadTime() const;
+		Graph getNetwork() const;
+
+		void loadDataset(DatasetType type, int option = -1);
+		ReturnDataTSP tspCaller(HeuristicType type);
 
 		// HeuristicUtils
 
