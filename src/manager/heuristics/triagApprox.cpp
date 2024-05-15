@@ -57,7 +57,8 @@ void dfs(Vertex *vtx, Vertex *last, std::vector<int> &stops,
 
 	if (last != nullptr)
 	{
-		double dist = last->getEdgeTo(vtx)->getWeight();
+		Edge *edg = last->getEdgeTo(vtx);
+		double dist = edg == nullptr ? 0 : edg->getWeight();
 		distances.push_back(dist);
 		*total += dist;
 	}
@@ -87,7 +88,8 @@ ReturnDataTSP Manager::triangularApproximationHeuristic()
 
 	Vertex *last = network.findVertex(stops.back());
 	stops.push_back(base->getId());
-	double lastDist = last->getEdgeTo(base)->getWeight();
+	Edge *lastEdge = last->getEdgeTo(base);
+	double lastDist = lastEdge == nullptr ? 0 : lastEdge->getWeight();
 	distances.push_back(lastDist);
 	totalDistance += lastDist;
 
