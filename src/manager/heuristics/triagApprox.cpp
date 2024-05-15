@@ -5,13 +5,15 @@
  * @note Complexity: O(E log V)
  * @param base Pointer to starting vertex.
 */
-void Manager::PrimMST(Vertex *base)
+Graph Manager::PrimMST(Vertex *base)
 {
+	Graph mst;
 	std::priority_queue<Vertex *> queue;
 
 	base->setDist(0);
 	for (auto vtx : network.getVertexSet())
 	{
+		mst.addVertex(vtx->getId(), vtx->getInfo());
 		vtx->setPath(nullptr);
 		vtx->setVisited(false);
 		vtx->setDist(__DBL_MAX__);
@@ -36,6 +38,15 @@ void Manager::PrimMST(Vertex *base)
 			}
 		}
 	}
+
+	for (auto vtx : network.getVertexSet())
+	{
+		Edge *edg = vtx->getPath();
+		if (edg == nullptr) continue;
+		mst.addBidirectionalEdge(edg->getDest()->getId(), edg->getOrig()->getId(), edg->getWeight());
+	}
+
+	return mst;
 }
 
 void dfs(Vertex *vtx, Vertex *last, std::vector<int> &stops, 
@@ -49,13 +60,6 @@ void dfs(Vertex *vtx, Vertex *last, std::vector<int> &stops,
 		double dist = last->getEdgeTo(vtx)->getWeight();
 		distances.push_back(dist);
 		*total += dist;
-	}
-
-	if (vtx->getPath() != nullptr)
-	{
-		Vertex *v = vtx->getPath()->getOrig();
-		if (!v->isVisited())
-			dfs(v, vtx, stops, distances, total);
 	}
 	
 	for (auto edg : vtx->getAdj())
@@ -73,26 +77,19 @@ ReturnDataTSP Manager::triangularApproximationHeuristic()
 	std::vector<int> stops;
 	std::vector<double> distances;
 	Vertex *base = network.getVertexSet().front();
-	PrimMST(base);
+	Graph mst = PrimMST(base);
 
 	for (auto vtx : network.getVertexSet())
-	{
-		std::cout << vtx->getId() << " goes to "  
-		<< (vtx->getPath() == nullptr ? -1 :
-			vtx->getPath()->getOrig()->getId()) << "\n";
-	}
-
-	std::cout << base->getId() << "\n";
-	while (std::cin.get() != '\n') {}
-	/*for (auto vtx : network.getVertexSet())
 		vtx->setVisited(false);
 
-	dfs(base, nullptr, stops, distances, &totalDistance);
+	Vertex *mstBase = mst.findVertex(base->getId());
+	dfs(mstBase, nullptr, stops, distances, &totalDistance);
+
 	Vertex *last = network.findVertex(stops.back());
 	stops.push_back(base->getId());
 	double lastDist = last->getEdgeTo(base)->getWeight();
 	distances.push_back(lastDist);
-	totalDistance += lastDist;*/
+	totalDistance += lastDist;
 
 	auto end = std::chrono::high_resolution_clock::now();
 	return {std::chrono::duration<double>(end - start).count(), stops, distances, totalDistance};

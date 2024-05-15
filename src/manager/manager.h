@@ -112,7 +112,7 @@ class Manager {
 		ReturnDataTSP backtrackingHeuristic();
 		
 		ReturnDataTSP triangularApproximationHeuristic();
-		void PrimMST(Vertex *base);
+		Graph PrimMST(Vertex *base);
 
 		ReturnDataTSP otherHeuristic();
 		ReturnDataTSP realWorldHeuristic();
