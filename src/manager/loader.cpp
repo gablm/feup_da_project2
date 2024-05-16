@@ -82,7 +82,7 @@ void Manager::loadRealWorld(unsigned option)
 	path << "../datasets/real_world/graph" << option << "/";
 	std::string nodes = path.str() + "nodes.csv";
 	std::string edges = path.str() + "edges.csv";
-	loadBig(nodes, edges, false, false, -1);
+	loadBig(nodes, edges, false, true, -1);
 }
 
 /**
