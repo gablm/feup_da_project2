@@ -8,15 +8,24 @@
 #include <sstream>
 #include <thread>
 #include <iomanip>
+#include <set>
 
 #ifdef __linux__
 # include <unistd.h>
-# define CLEAR (void)system("clear")
+# ifdef DEBUG
+#  define CLEAR std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+# else
+#  define CLEAR (void)system("clear")
+# endif
 # define PAUSE(x) usleep(x * 1000)
 # define RESET "\33[2K\r"
 #else
 # include <windows.h>
+# ifdef DEBUG
+#  define CLEAR std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+# else
 # define CLEAR (void)system("cls")
+# endif
 # define PAUSE(x) Sleep(x);
 # define RESET "\r"
 #endif
@@ -77,18 +86,9 @@ class Manager {
 
 		Graph network;
 		bool fullyConnected = true;
-	public:
-		~Manager();
-
-		std::string getCurrentDatasetType() const;
-		bool isAnyDataSetLoaded() const;
-		bool isFullyConnected() const;
-		long getLoadTime() const;
-		Graph getNetwork() const;
 
 		// Loaders
 
-		void loadDataset(DatasetType type, int option = -1);
 		void loadToy(unsigned option);
 		void loadExtra(unsigned option);
 		void loadRealWorld(unsigned option);
@@ -98,12 +98,27 @@ class Manager {
 
 		// Heuristics
 
-		ReturnDataTSP tspCaller(HeuristicType type);
-
 		ReturnDataTSP backtrackingHeuristic();
+		
 		ReturnDataTSP triangularApproximationHeuristic();
+		Graph PrimMST(Vertex *base);
+		void trianApproxDfs(Vertex *vtx, Vertex *last, std::vector<int> &stops, 
+			std::vector<double> &distances, double *total);
+
 		ReturnDataTSP otherHeuristic();
 		ReturnDataTSP realWorldHeuristic();
+
+	public:
+		~Manager();
+
+		std::string getCurrentDatasetType() const;
+		bool isAnyDataSetLoaded() const;
+		bool isFullyConnected() const;
+		long getLoadTime() const;
+		Graph getNetwork() const;
+
+		void loadDataset(DatasetType type, int option = -1);
+		ReturnDataTSP tspCaller(HeuristicType type);
 
 		// HeuristicUtils
 
@@ -113,7 +128,6 @@ class Manager {
 		static double to_radians(double num);
 		bool isGraphFullyConnected();
 		void fullyConnectGraph();
-
 };
 
 #endif

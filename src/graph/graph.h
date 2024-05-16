@@ -61,14 +61,13 @@ public:
     bool removeEdge(int id);
     void removeOutgoingEdges();
 
-	bool isConnectedTo(Vertex *dest) const;
+	Edge *getEdgeTo(Vertex *dest) const;
 	
 protected:
 	int id;
     Info info;
     std::vector<Edge *> adj;
 	std::unordered_map<int, Edge *> adjMap;
-	std::mutex incomingBlock;
 
     bool visited = false;
     bool processing = false;

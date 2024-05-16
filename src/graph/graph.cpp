@@ -33,9 +33,7 @@ Edge *Vertex::addEdge(Vertex *d, double w) {
     auto newEdge = new Edge(this, d, w);
     adj.push_back(newEdge);
 	adjMap[d->getId()] = newEdge;
-    d->incomingBlock.lock();
 	d->incoming.push_back(newEdge);
-	d->incomingBlock.unlock();
     return newEdge;
 }
 
@@ -76,14 +74,14 @@ void Vertex::removeOutgoingEdges() {
     }
 }
 
-bool Vertex::isConnectedTo(Vertex *dest) const {
+Edge *Vertex::getEdgeTo(Vertex *dest) const {
 	try
 	{
-		return adjMap.at(dest->id) != nullptr;
+		return adjMap.at(dest->id);
 	}
 	catch (const std::exception& e)
 	{
-		return false;
+		return nullptr;
 	}
 }
 
