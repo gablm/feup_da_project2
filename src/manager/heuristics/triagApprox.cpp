@@ -111,6 +111,8 @@ ReturnDataTSP Manager::triangularApproximationHeuristic()
 	totalDistance += lastDist;
 
 	auto end = std::chrono::high_resolution_clock::now();
+	mst.resetGraph();
+	
 	return {std::chrono::duration<double>(end - start).count(), stops, distances, totalDistance};
 }
 

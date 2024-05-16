@@ -20,6 +20,8 @@ class UI {
 		void selectorMenu();
 		void loaderScreen(DatasetType type, int option);
 		void resultMenu(HeuristicType type);
+
+		Vertex *getBaseVertex();
 };
 
 #endif

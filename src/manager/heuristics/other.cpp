@@ -17,7 +17,7 @@ std::vector<std::vector<Vertex*>> createClusters(Graph g, double distance) {
                v->getAdjMap().at(b->getId())->getWeight();
     });
 
-    size_t startCluster = 0;
+    //size_t startCluster = 0;
     for (auto vertex : nodes) {
         if (v->getId() == 0) continue;
 
@@ -42,7 +42,7 @@ std::vector<std::vector<Vertex*>> createClusters(Graph g, double distance) {
         }
     }
 
-
+	return clusters;
 }
 
 ReturnDataTSP Manager::otherHeuristic() {

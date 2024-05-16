@@ -12,12 +12,61 @@ bool isInvalid(ReturnDataTSP data)
 }
 
 /**
+ * Selects a vertex from the currently loaded graph 
+ * in order to be used in heuristic 4.4
+ * @return Vertex selected using an id.
+*/
+Vertex *UI::getBaseVertex()
+{
+	while (1)
+	{
+		CLEAR;
+		std::cout 
+		<< "This heuristic requires a base vertex where the route will start.\n"
+		<< "Please indicate the id for this vertex:\n"
+		<< "\n"
+		<< "$> ";
+
+		std::string str;
+		std::getline(std::cin, str);
+
+		if (str == "b" || str == "B") return nullptr;
+
+		if (str == "q" || str == "Q")
+		{
+			CLEAR;
+			exit(0);
+		}
+
+		try 
+		{
+			int id = std::stoi(str);
+			Vertex *ret = manager.getNetwork().findVertex(id);
+			if (ret != nullptr) return ret;
+			showMessage("INVALID VERTEX", "Please input a valid id!");
+		}
+		catch (const std::exception& e)
+		{
+			showMessage("COULD NOT CONVERT NUMBER", "Please input a valid number!");
+		}		
+	}
+	return nullptr;
+}
+
+/**
  * Shows the route calculated by a specific heuristic for the currently loaded type.
  * @param type Heuristic type.
 */
 void UI::resultMenu(HeuristicType type)
 {
-	ReturnDataTSP ret = manager.tspCaller(type);
+	Vertex *base = nullptr;
+	if (type == HeuristicType::real_world_2_4) 
+	{
+		base = getBaseVertex();
+		if (base == nullptr) return;
+	}
+
+	ReturnDataTSP ret = manager.tspCaller(type, base);
 
 	if (isInvalid(ret))
 	{
