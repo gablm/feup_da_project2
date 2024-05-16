@@ -102,6 +102,9 @@ Info Vertex::getInfo() const {
 std::vector<Edge *> Vertex::getAdj() const {
     return this->adj;
 }
+std::unordered_map<int, Edge *> Vertex::getAdjMap() const{
+    return this->adjMap;
+}
 
 bool Vertex::isVisited() const {
     return this->visited;
@@ -225,6 +228,10 @@ int Graph::getNumVertex() const {
 
 std::vector<Vertex *> Graph::getVertexSet() const {
     return vertexSet;
+}
+
+std::unordered_map<int, Vertex*> Graph::getVertexMap() const{
+    return vertexMap;
 }
 
 /*

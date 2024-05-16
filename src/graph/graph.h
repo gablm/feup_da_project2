@@ -41,6 +41,8 @@ public:
 	int getId() const;
     Info getInfo() const;
     std::vector<Edge *> getAdj() const;
+	std::unordered_map<int, Edge *> getAdjMap() const;
+
     bool isVisited() const;
     bool isProcessing() const;
     unsigned int getIndegree() const;
@@ -125,6 +127,7 @@ public:
 
     int getNumVertex() const;
     std::vector<Vertex *> getVertexSet() const;
+    std::unordered_map<int, Vertex*> getVertexMap() const;
 	void resetGraph();
 protected:
     std::vector<Vertex *> vertexSet;
