@@ -103,11 +103,14 @@ class Manager {
 		void backtrack(Graph* g, Vertex* v, std::vector<int>& currentPath, double& currentDistance, double* bestDistance, std::vector<int>* bestPath);
 		
 		ReturnDataTSP triangularApproximationHeuristic();
-		Graph PrimMST(Vertex *base);
+		Graph PrimMST(Graph &g, Vertex *base);
 		void trianApproxDfs(Vertex *vtx, Vertex *last, std::vector<int> &stops, 
 			std::vector<double> &distances, double *total);
 
 		ReturnDataTSP otherHeuristic();
+		void createClusters(Graph& g, double distance, std::vector<std::vector<Vertex*>>& clusters);
+		double triangularCluster(Graph& graph, Vertex* base, std::vector<int>& stops, std::vector<double>& distances);
+
 		ReturnDataTSP realWorldHeuristic(Vertex *base);
 
 	public:

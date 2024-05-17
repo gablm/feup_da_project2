@@ -1,7 +1,7 @@
 #include "../manager.h"
 
-void createClusters(Graph& g, double distance,
-                    std::list<std::list<Vertex*>>& clusters) {
+void Manager::createClusters(Graph& g, double distance,
+                    std::vector<std::vector<Vertex*>>& clusters) {
     Vertex* v = g.findVertex(0);
 
     clusters.push_back({v});
@@ -25,66 +25,8 @@ void createClusters(Graph& g, double distance,
     }
 }
 
-Graph PrimMST(Graph& g, Vertex* base) {
-    Graph mst;
-    std::priority_queue<Vertex*> queue;
-
-    base->setDist(0);
-    for (auto vtx : g.getVertexSet()) {
-        mst.addVertex(vtx->getId(), vtx->getInfo());
-        vtx->setPath(nullptr);
-        vtx->setVisited(false);
-        vtx->setDist(__DBL_MAX__);
-    }
-
-    queue.push(base);
-    while (!queue.empty()) {
-        Vertex* u = queue.top();
-        queue.pop();
-        if (u->isVisited()) continue;
-        u->setVisited(true);
-
-        for (auto e : u->getAdj()) {
-            Vertex* v = e->getDest();
-            if (!v->isVisited() && e->getWeight() < v->getDist()) {
-                v->setPath(e);
-                queue.push(v);
-                v->setDist(e->getWeight());
-            }
-        }
-    }
-
-    for (auto vtx : g.getVertexSet()) {
-        Edge* edg = vtx->getPath();
-        if (edg == nullptr) continue;
-        mst.addBidirectionalEdge(edg->getDest()->getId(),
-                                 edg->getOrig()->getId(), edg->getWeight());
-    }
-    return mst;
-}
-
-void trianApproxDfs(Vertex* vtx, Vertex* last, std::list<int>& stops,
-
-                    std::list<double>& distances, double* total) {
-    vtx->setVisited(true);
-    stops.push_back(vtx->getId());
-
-    if (last != nullptr) {
-        Edge* edg = last->getEdgeTo(vtx);
-        double dist = edg == nullptr ? 0 : edg->getWeight();
-        distances.push_back(dist);
-        *total += dist;
-    }
-
-    for (auto edg : vtx->getAdj()) {
-        Vertex* v = edg->getDest();
-        if (v->isVisited()) continue;
-        trianApproxDfs(v, vtx, stops, distances, total);
-    }
-}
-
-double triangularCluster(Graph& graph, Vertex* base, std::list<int>& stops,
-                         std::list<double>& distances) {
+double Manager::triangularCluster(Graph& graph, Vertex* base, std::vector<int>& stops,
+                         std::vector<double>& distances) {
     double totalDistance = 0;
     Graph mst = PrimMST(graph, base);
 
@@ -121,7 +63,7 @@ ReturnDataTSP Manager::otherHeuristic() {
 
     testStart = std::chrono::high_resolution_clock::now();
     // Create the clusters
-    std::list<std::list<Vertex*>> clusters;
+    std::vector<std::vector<Vertex*>> clusters;
     createClusters(network, distance, clusters);
 
     testEnd = std::chrono::high_resolution_clock::now();
@@ -131,8 +73,8 @@ ReturnDataTSP Manager::otherHeuristic() {
 
     // save results related to each cluster saved with the anchor of each
     // cluster
-    std::unordered_map<int, std::list<double>> clusterDistances;
-    std::unordered_map<int, std::list<int>> clusterStops;
+    std::unordered_map<int, std::vector<double>> clusterDistances;
+    std::unordered_map<int, std::vector<int>> clusterStops;
 
     // Calculate connections inside clusters
     for (auto cluster : clusters) {
@@ -145,8 +87,8 @@ ReturnDataTSP Manager::otherHeuristic() {
 
         
         Graph clusterGraph;
-        std::list<int> stops;
-        std::list<double> distances;
+        std::vector<int> stops;
+        std::vector<double> distances;
 
         testStart = std::chrono::high_resolution_clock::now();
         // Populate the graph
@@ -198,8 +140,8 @@ ReturnDataTSP Manager::otherHeuristic() {
     testEnd = std::chrono::high_resolution_clock::now();
     testFinal = std::chrono::duration<double>(testEnd - testStart).count();
     // Perform Triangular Aproximation to connect the clusters
-    std::list<double> connectingDistances;
-    std::list<int> connectingStops;
+    std::vector<double> connectingDistances;
+    std::vector<int> connectingStops;
 
     testStart = std::chrono::high_resolution_clock::now();
     totalDistance += triangularCluster(anchorGraph, network.findVertex(0),

@@ -96,7 +96,7 @@ void UI::resultMenu(HeuristicType type)
 
 		std::cout
 		<< "\n" 
-		<< "Total Stops: " << ret.stops.size() - 2 << " (" << ret.stops.size() << " stops including the initial/final point)\n"
+		<< "Total Stops: " << ret.stops.size() - 2 << " (" << ret.stops.size() - 1 << " nodes visited)\n"
 		<< "Total Distance Travelled: " << ret.totalDistance << "km\n"
 		<< "Time taken to run the heuristic: " << ret.processingTime << "s\n"
 		<< "\n"

@@ -12,13 +12,13 @@ void Manager::loadToy(unsigned option)
 	switch (option)
 	{
 		case 1:
-			fileName = "../datasets/toy/shipping.csv";
+			fileName = "./datasets/toy/shipping.csv";
 			break;
 		case 2:
-			fileName = "../datasets/toy/stadiums.csv";
+			fileName = "./datasets/toy/stadiums.csv";
 			break;
 		case 3:
-			fileName = "../datasets/toy/tourism.csv";
+			fileName = "./datasets/toy/tourism.csv";
 			break;
 	}
 	std::ifstream file = std::ifstream(fileName);
@@ -65,9 +65,9 @@ void Manager::loadToy(unsigned option)
 */
 void Manager::loadExtra(unsigned option)
 {
-	std::string nodes = "../datasets/extra_fully_connected/nodes.csv";
+	std::string nodes = "./datasets/extra_fully_connected/nodes.csv";
 	std::ostringstream edges;
-	edges << "../datasets/extra_fully_connected/edges_" << option << ".csv";
+	edges << "./datasets/extra_fully_connected/edges_" << option << ".csv";
 	loadBig(nodes, edges.str(), true, true, option);
 }
 
@@ -79,7 +79,7 @@ void Manager::loadExtra(unsigned option)
 void Manager::loadRealWorld(unsigned option)
 {
 	std::ostringstream path;
-	path << "../datasets/real_world/graph" << option << "/";
+	path << "./datasets/real_world/graph" << option << "/";
 	std::string nodes = path.str() + "nodes.csv";
 	std::string edges = path.str() + "edges.csv";
 	loadBig(nodes, edges, false, true, -1);

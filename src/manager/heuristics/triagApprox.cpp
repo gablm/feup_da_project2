@@ -2,16 +2,18 @@
 
 /**
  * Creates a minimum span tree using Prim's Algorithm.
+ * Uses the default graph
  * @note Complexity: O(E log V)
+ * @param g Base graph to operate on.
  * @param base Pointer to starting vertex.
 */
-Graph Manager::PrimMST(Vertex *base)
+Graph Manager::PrimMST(Graph &g, Vertex *base)
 {
 	Graph mst;
 	std::priority_queue<Vertex *> queue;
 
 	base->setDist(0);
-	for (auto vtx : network.getVertexSet())
+	for (auto vtx : g.getVertexSet())
 	{
 		mst.addVertex(vtx->getId(), vtx->getInfo());
 		vtx->setPath(nullptr);
@@ -39,7 +41,7 @@ Graph Manager::PrimMST(Vertex *base)
 		}
 	}
 
-	for (auto vtx : network.getVertexSet())
+	for (auto vtx : g.getVertexSet())
 	{
 		Edge *edg = vtx->getPath();
 		if (edg == nullptr) continue;
@@ -95,7 +97,7 @@ ReturnDataTSP Manager::triangularApproximationHeuristic()
 	std::vector<int> stops;
 	std::vector<double> distances;
 	Vertex *base = network.getVertexSet().front();
-	Graph mst = PrimMST(base);
+	Graph mst = PrimMST(network, base);
 
 	for (auto vtx : network.getVertexSet())
 		vtx->setVisited(false);
