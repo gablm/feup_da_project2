@@ -1,6 +1,13 @@
 #include "manager.h"
 
-ReturnDataTSP Manager::tspCaller(HeuristicType type)
+/**
+ * Calls the appropriate heuristic from within the manager.
+ * @return Structure with time taken, stops, distances between stops 
+ * and total distance travelled.
+ * @param type Type of heuristic
+ * @param base Only needed for 4th heuristic, defines the base vertex.
+*/
+ReturnDataTSP Manager::tspCaller(HeuristicType type, Vertex *base = nullptr)
 {
 	switch(type)
 	{
@@ -11,7 +18,7 @@ ReturnDataTSP Manager::tspCaller(HeuristicType type)
 		case other_2_3:
 			return otherHeuristic();
 		case real_world_2_4:
-			return realWorldHeuristic();
+			return realWorldHeuristic(base);
 	}
 	
 	return {-1, {}, {}, -1};

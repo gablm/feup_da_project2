@@ -106,7 +106,7 @@ class Manager {
 			std::vector<double> &distances, double *total);
 
 		ReturnDataTSP otherHeuristic();
-		ReturnDataTSP realWorldHeuristic();
+		ReturnDataTSP realWorldHeuristic(Vertex *base);
 
 	public:
 		~Manager();
@@ -118,7 +118,7 @@ class Manager {
 		Graph getNetwork() const;
 
 		void loadDataset(DatasetType type, int option = -1);
-		ReturnDataTSP tspCaller(HeuristicType type);
+		ReturnDataTSP tspCaller(HeuristicType type, Vertex *base);
 
 		// HeuristicUtils
 
