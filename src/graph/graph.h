@@ -8,7 +8,6 @@
 #include <algorithm>
 #include <unordered_map>
 #include <string>
-#include <mutex>
 
 class Edge;
 class Vertex;

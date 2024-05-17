@@ -1,19 +1,8 @@
 #include "../manager.h"
-#include <limits.h>
-#include <unordered_map>
-#include <vector>
-#include <chrono>
-#include <limits>
-#include <list>
 
-
-
-
-
-void backtrack(Graph* g, Vertex* v, std::vector<int>& currentPath, double& currentDistance, double* bestDistance, std::vector<int>* bestPath) {
-    if (currentDistance > *bestDistance || (g->findVertex(0) == v && currentDistance != 0 && (int) currentPath.size() != g->getNumVertex())) {
-        return;
-    }
+void Manager::backtrack(Graph* g, Vertex* v, std::vector<int>& currentPath, double& currentDistance, double* bestDistance, std::vector<int>* bestPath) {
+    if (currentDistance > *bestDistance 
+		|| (g->findVertex(0) == v && currentDistance != 0 && (int) currentPath.size() != g->getNumVertex())) return;
 
     currentPath.push_back(v->getId());
 
@@ -32,11 +21,9 @@ void backtrack(Graph* g, Vertex* v, std::vector<int>& currentPath, double& curre
         *bestDistance = currentDistance;
         *bestPath = currentPath;
     }
+
     currentPath.pop_back();
 }
-
-
-// Define your Graph and Vertex classes and other necessary declarations...
 
 ReturnDataTSP Manager::backtrackingHeuristic() {
     auto start = std::chrono::high_resolution_clock::now();
@@ -54,10 +41,9 @@ ReturnDataTSP Manager::backtrackingHeuristic() {
 
     backtrack(&network, initial, path, current, &totalDistance, &stops);
 
-
-for(int i = 0; i < (int)(stops.size())-1;i++ ){
+	for(int i = 0; i < (int)(stops.size())-1;i++ ){
 		for(auto edge : network.findVertex(stops[i])->getAdj()){
-			if(edge->getDest() == network.findVertex(stops[i+1])){
+			if(edge->getDest() == network.findVertex(stops[i + 1])){
 				distances.push_back(edge->getWeight());
 			}
 		

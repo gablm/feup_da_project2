@@ -1,7 +1,3 @@
-#include <algorithm>
-#include <list>
-#include <unordered_map>
-
 #include "../manager.h"
 
 void createClusters(Graph& g, double distance,
@@ -98,10 +94,6 @@ double triangularCluster(Graph& graph, Vertex* base, std::list<int>& stops,
     trianApproxDfs(mstBase, nullptr, stops, distances, &totalDistance);
     return totalDistance;
 }
-
-
-
-
 
 ReturnDataTSP Manager::otherHeuristic() {
     // Calculate which distance to use

@@ -9,6 +9,7 @@
 #include <thread>
 #include <iomanip>
 #include <set>
+#include <list>
 
 #ifdef __linux__
 # include <unistd.h>
@@ -99,6 +100,7 @@ class Manager {
 		// Heuristics
 
 		ReturnDataTSP backtrackingHeuristic();
+		void backtrack(Graph* g, Vertex* v, std::vector<int>& currentPath, double& currentDistance, double* bestDistance, std::vector<int>* bestPath);
 		
 		ReturnDataTSP triangularApproximationHeuristic();
 		Graph PrimMST(Vertex *base);
