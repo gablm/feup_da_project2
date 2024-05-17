@@ -1,12 +1,12 @@
 #include <algorithm>
+#include <list>
 #include <unordered_map>
 
 #include "../manager.h"
 
-std::vector<std::vector<Vertex*>> createClusters(Graph& g, double distance) {
+void createClusters(Graph& g, double distance,
+                    std::list<std::list<Vertex*>>& clusters) {
     Vertex* v = g.findVertex(0);
-
-    std::vector<std::vector<Vertex*>> clusters;
 
     clusters.push_back({v});
 
@@ -17,8 +17,7 @@ std::vector<std::vector<Vertex*>> createClusters(Graph& g, double distance) {
         if (vertex->getId() == 0) continue;
 
         for (auto& cluster : clusters) {
-            if (vertex->getAdjMap().at(cluster[0]->getId())->getWeight() <=
-                distance) {
+            if (vertex->getEdgeTo(cluster.front())->getWeight() <= distance) {
                 cluster.push_back(vertex);
                 fitted = true;
                 break;
@@ -28,7 +27,6 @@ std::vector<std::vector<Vertex*>> createClusters(Graph& g, double distance) {
             clusters.push_back({vertex});
         }
     }
-    return clusters;
 }
 
 Graph PrimMST(Graph& g, Vertex* base) {
@@ -102,23 +100,32 @@ double triangularCluster(Graph& graph, Vertex* base, std::vector<int>& stops,
 }
 
 ReturnDataTSP Manager::otherHeuristic() {
-    auto start = std::chrono::high_resolution_clock::now();
-
     // Calculate which distance to use
     double totalWeight = 0;
     size_t numberVertex = network.getVertexSet().size();
+    int count = 0;
 
+    auto start = std::chrono::high_resolution_clock::now();
+    auto testStart = std::chrono::high_resolution_clock::now();
+    auto testEnd = std::chrono::high_resolution_clock::now();
     for (size_t i = 0; i < numberVertex - 1; i++) {
         for (size_t j = i + 1; j < numberVertex; j++) {
+            count++;
             Edge* edge =
                 network.getVertexSet()[i]->getEdgeTo(network.getVertexSet()[j]);
             totalWeight += edge->getWeight();
         }
     }
-    double distance = totalWeight / numberVertex;
+    double distance = totalWeight / (count) * 0.3;
 
-    std::vector<std::vector<Vertex*>> clusters =
-        createClusters(network, distance);
+    double time = std::chrono::duration<double>(testEnd - testStart).count();
+    count = time;
+    testStart = std::chrono::high_resolution_clock::now();
+    std::list<std::list<Vertex*>> clusters;
+    createClusters(network, distance, clusters);
+
+    testEnd = std::chrono::high_resolution_clock::now();
+    time = std::chrono::duration<double>(testEnd - testStart).count();
 
     double totalDistance = 0;
     // save results related to each cluster saved with the anchor of each
@@ -126,42 +133,52 @@ ReturnDataTSP Manager::otherHeuristic() {
     std::unordered_map<int, std::vector<double>> clusterDistances;
     std::unordered_map<int, std::vector<int>> clusterStops;
 
+    testStart = std::chrono::high_resolution_clock::now();
     // Calculate connections inside clusters
     for (auto cluster : clusters) {
         Graph clusterGraph;
         std::vector<int> stops;
         std::vector<double> distances;
 
+        auto clusterTest = std::chrono::high_resolution_clock::now();
         for (Vertex* v : cluster) {
             clusterGraph.addVertex(v->getId(), v->getInfo());
         }
 
-        for (size_t i = 0; i < (cluster.size() - 1); i++) {
-            for (size_t j = i + 1; j < cluster.size(); j++) {
-                Edge* e = cluster[i]->getEdgeTo(cluster[j]);
+        for (auto it = cluster.begin(); std::next(it) != cluster.end(); ++it) {
+            for (auto jt = std::next(it); jt != cluster.end(); ++jt) {
+                Edge* e = (*it)->getEdgeTo(*jt);
                 clusterGraph.addBidirectionalEdge(
-                    cluster[i]->getId(), cluster[j]->getId(), e->getWeight());
+                    (*it)->getId(), (*jt)->getId(), e->getWeight());
             }
         }
+
         totalDistance += triangularCluster(
-            clusterGraph, clusterGraph.findVertex(cluster[0]->getId()), stops,
+            clusterGraph, clusterGraph.findVertex(cluster.front()->getId()), stops,
             distances);
-        clusterDistances[cluster[0]->getId()] = distances;
-        clusterStops[cluster[0]->getId()] = stops;
+        clusterDistances[cluster.front()->getId()] = distances;
+        clusterStops[cluster.front()->getId()] = stops;
+
+        auto clusterTestEnd = std::chrono::high_resolution_clock::now();
+        time =
+            std::chrono::duration<double>(clusterTestEnd - clusterTest).count();
     }
 
+    testEnd = std::chrono::high_resolution_clock::now();
+    time = std::chrono::duration<double>(testEnd - testStart).count();
     // Connect cluster with respect to start and end of MST
     Graph anchorGraph;
 
+    testStart = std::chrono::high_resolution_clock::now();
     for (auto cluster : clusters) {
-        anchorGraph.addVertex(cluster[0]->getId(), cluster[0]->getInfo());
+        anchorGraph.addVertex(cluster.front()->getId(), cluster.front()->getInfo());
     }
 
     for (auto originCluster : clusters) {
-        Vertex* origin = originCluster[0];
+        Vertex* origin = originCluster.front();
         for (auto endCluster : clusters) {
             if (originCluster == endCluster) continue;
-            int end = clusterStops[endCluster[0]->getId()].back();
+            int end = clusterStops[endCluster.front()->getId()].back();
             anchorGraph.addEdge(
                 origin->getId(), end,
                 origin->getEdgeTo(network.findVertex(end))->getWeight());
@@ -174,6 +191,11 @@ ReturnDataTSP Manager::otherHeuristic() {
     totalDistance += triangularCluster(anchorGraph, network.findVertex(0),
                                        connectingStops, connectingDistances);
 
+    testEnd = std::chrono::high_resolution_clock::now();
+    time = std::chrono::duration<double>(testEnd - testStart).count();
+
+    testStart = std::chrono::high_resolution_clock::now();
+
     std::vector<int> finalStops;
     std::vector<double> finalDistances;
 
@@ -182,14 +204,19 @@ ReturnDataTSP Manager::otherHeuristic() {
                           clusterStops[i].end());
         finalDistances.insert(finalDistances.end(), clusterDistances[i].begin(),
                               clusterDistances[i].end());
-                              if (i < connectingStops.size()-1)
-        finalDistances.push_back(connectingDistances[i]);
+        if (i < connectingStops.size() - 1)
+            finalDistances.push_back(connectingDistances[i]);
     }
     finalStops.push_back(connectingStops[0]);
     int finalCluster = connectingStops.back();
     Vertex* finalVertex = network.findVertex(clusterStops[finalCluster].back());
-    finalDistances.push_back(
-        network.findVertex(0)->getEdgeTo(finalVertex)->getWeight());
+    double finalWeight =
+        network.findVertex(0)->getEdgeTo(finalVertex)->getWeight();
+    finalDistances.push_back(finalWeight);
+    totalDistance += finalWeight;
+
+    testEnd = std::chrono::high_resolution_clock::now();
+    time = std::chrono::duration<double>(testEnd - testStart).count();
 
     auto end = std::chrono::high_resolution_clock::now();
     return {std::chrono::duration<double>(end - start).count(), finalStops,
