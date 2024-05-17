@@ -85,7 +85,6 @@ ReturnDataTSP Manager::otherHeuristic() {
         //     clusterDistances[cluster.front()->getId()].push_back((*it)->getEdgeTo((*std::next(it)))->getWeight());
         // }
 
-        
         Graph clusterGraph;
         std::vector<int> stops;
         std::vector<double> distances;
@@ -170,8 +169,8 @@ ReturnDataTSP Manager::otherHeuristic() {
     finalStops.push_back(connectingStops.front());
     int finalCluster = connectingStops.back();
     Vertex* finalVertex = network.findVertex(clusterStops[finalCluster].back());
-    double finalWeight =
-        network.findVertex(0)->getEdgeTo(finalVertex)->getWeight();
+	Edge *finalEdge = network.findVertex(0)->getEdgeTo(finalVertex);
+    double finalWeight = finalEdge != nullptr ? finalEdge->getWeight() : 0;
     finalDistances.push_back(finalWeight);
     totalDistance += finalWeight;
 
