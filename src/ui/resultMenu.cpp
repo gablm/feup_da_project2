@@ -79,7 +79,7 @@ void UI::resultMenu(HeuristicType type)
 	{
 		CLEAR;
 		std::cout 
-		<< "Results for heuristic " << type << "\n"
+		<< "Results for Heuristic: " << Manager::getHeuristicAsString(type) << "\n"
 		<< "\n";
 
 		size_t i = count;

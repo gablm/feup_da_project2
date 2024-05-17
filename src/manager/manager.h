@@ -117,6 +117,7 @@ class Manager {
 		~Manager();
 
 		std::string getCurrentDatasetType() const;
+		static std::string getHeuristicAsString(HeuristicType type);
 		bool isAnyDataSetLoaded() const;
 		bool isFullyConnected() const;
 		long getLoadTime() const;

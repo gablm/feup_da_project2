@@ -10,7 +10,7 @@ Manager::~Manager() {
 }
 
 /**
- * Returns the current dataset type as a formatted string.
+ * @return The current dataset type as a formatted string.
 */
 std::string Manager::getCurrentDatasetType() const
 {
@@ -36,29 +36,50 @@ std::string Manager::getCurrentDatasetType() const
 }
 
 /**
- * Returns the time taken to load the current dataset.
+ * @return Time taken to load the current dataset.
 */
 long Manager::getLoadTime() const {
 	return loadtime;
 }
 
 /**
- * Returns the graph for the current dataset.
+ * @return The graph for the current dataset.
 */
 Graph Manager::getNetwork() const {
 	return network;
 }
 
 /**
- * Returns true if there is any dataset loaded.
+ * @return True if there is any dataset loaded.
 */
 bool Manager::isAnyDataSetLoaded() const {
 	return dType != none;
 }
 
 /**
- * Returns true if the graph is fully connected.
+ * @return True if the graph is fully connected.
 */
 bool Manager::isFullyConnected() const {
 	return fullyConnected;
+}
+
+/**
+ * Converts a Heuristic type enum to a string with its name.
+ * @param type Heuristic type
+ * @return Heuristic name as a formatted string
+*/
+std::string Manager::getHeuristicAsString(HeuristicType type)
+{
+	switch (type)
+	{
+		case backtracking_2_1:
+			return "Backtracking (T2.1)";
+		case triangular_approximation_2_2:
+			return "Triangular Approximation (T2.2)";
+		case other_2_3:
+			return "Other (T2.3)";
+		case real_world_2_4:
+			return "Real World (T2.4)";
+	}
+	return "Unknown";
 }
