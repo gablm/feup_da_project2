@@ -57,7 +57,7 @@ ReturnDataTSP Manager::otherHeuristic() {
     auto testEnd = std::chrono::high_resolution_clock::now();
     auto testFinal = std::chrono::duration<double>(testEnd - testStart).count();
     std::cout << testFinal;
-    double distance = totalWeight / (count) * 0.2;
+    double distance = totalWeight / (count) * 0.6;
 
     auto start = std::chrono::high_resolution_clock::now();
 
@@ -143,7 +143,7 @@ ReturnDataTSP Manager::otherHeuristic() {
     std::vector<int> connectingStops;
 
     testStart = std::chrono::high_resolution_clock::now();
-    totalDistance += triangularCluster(anchorGraph, network.findVertex(0),
+    totalDistance += triangularCluster(anchorGraph, anchorGraph.findVertex(0),
                                        connectingStops, connectingDistances);
 
     testEnd = std::chrono::high_resolution_clock::now();
