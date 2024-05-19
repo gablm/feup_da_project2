@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['manager_0',['Manager',['../class_manager.html',1,'']]]
+  ['manager_36',['Manager',['../classManager.html',1,'']]]
 ];
