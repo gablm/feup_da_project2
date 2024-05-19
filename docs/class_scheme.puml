@@ -1,0 +1,55 @@
+@startuml ClassScheme
+
+class Info {
+	string label
+	double lat
+	double lon
+	--
+	src/graph/graph.h
+	src/graph/graph.cpp
+}
+
+class Graph {
+	Graph as used in DA/AED
+	pratical lessons
+	--
+	src/graph/graph.h
+	src/graph/graph.cpp
+}
+
+class Manager {
+	Contains all the information
+	and methods to operate over 
+	the dataset
+	--
+	src/manager/manager.h
+	src/manager/loader.cpp
+	src/manager/manager.cpp
+	src/manager/tspCaller.cpp
+	src/manager/heuristics/backtrack.cpp
+	src/manager/heuristics/other.cpp
+	src/manager/heuristics/realworld.cpp
+	src/manager/heuristics/triagApprox.cpp
+	src/manager/heuristics/utils.cpp
+}
+
+class Ui {
+	Main entry point 
+	for the program
+	--
+	src/main.cpp
+	src/ui/ui.h
+	src/ui/mainMenu.cpp
+	src/ui/selectorMenu.cpp
+	src/uiMaxFlow.cpp
+	src/uiMeetDemands.cpp
+	src/uiRemovePipe.cpp
+	src/uiRemovePS.cpp
+	src/uiRemoveReservoir.cpp
+}
+
+Graph "1" -- "*" Vertex
+Vertex "1" -- "1" Info
+Ui "1" -- "1" Manager
+Manager "1" -- "1" Graph
+@enduml
