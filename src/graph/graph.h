@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <unordered_map>
 #include <string>
+#include <sstream>
 
 class Edge;
 class Vertex;
@@ -59,6 +60,7 @@ public:
     Edge *addEdge(Vertex *dest, double w);
     bool removeEdge(int id);
     void removeOutgoingEdges();
+	void clearAdj();
 
 	Edge *getEdgeTo(Vertex *dest) const;
 	

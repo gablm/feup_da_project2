@@ -91,8 +91,9 @@ void UI::testManager()
 {
 	CLEAR;
 	std::string str;
-		
-	for (auto m : manager.getNetwork().getVertexSet())
+	
+	Graph network = manager.getNetwork();
+	for (auto m : network.getVertexSet())
 	{
 		std::cout << m->getId() << " " << m->getInfo().toStr() 
 			<< " (" << m->getAdj().size() << " edges)\n";

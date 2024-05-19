@@ -112,6 +112,10 @@ class Manager {
 		double triangularCluster(Graph& graph, Vertex* base, std::vector<int>& stops, std::vector<double>& distances);
 
 		ReturnDataTSP realWorldHeuristic(Vertex *base);
+		std::vector<Edge *> perfectMatching(Graph &mst);
+		std::vector<Vertex *> eulerPath(Vertex *base);
+		std::vector<int> hamilton(std::vector<Vertex *> &eulerStops);
+		bool invalidPath(Graph &g, std::vector<int> &stops, std::vector<double> &dists, double *totalDist);
 
 	public:
 		~Manager();

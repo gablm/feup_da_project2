@@ -1,5 +1,4 @@
 #include "graph.h"
-#include <sstream>
 
 /************************* Info **************************/
 
@@ -100,8 +99,14 @@ Info Vertex::getInfo() const {
 const std::vector<Edge *>& Vertex::getAdj() const {
     return this->adj;
 }
-std::unordered_map<int, Edge *> Vertex::getAdjMap() const{
+
+std::unordered_map<int, Edge *> Vertex::getAdjMap() const {
     return this->adjMap;
+}
+
+void Vertex::clearAdj() {
+	this->adj.clear();
+	this->adjMap.clear();
 }
 
 bool Vertex::isVisited() const {

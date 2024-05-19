@@ -21,6 +21,9 @@ class UI {
 		void loaderScreen(DatasetType type, int option);
 		void resultMenu(HeuristicType type);
 
+		bool isTSPInvalid(ReturnDataTSP data);
+		bool isTSPFailed(ReturnDataTSP data);
+
 		Vertex *getBaseVertex();
 };
 
