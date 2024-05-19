@@ -1,7 +1,5 @@
 #include "../manager.h"
 #include "../../ui/ui.h"
-#include <stack>
-#include <unordered_set>
 
 /**
  * Finds the "perfect match" edge for each vertex.
@@ -17,7 +15,6 @@ std::vector<Edge *> Manager::perfectMatching(Graph &mst)
 	std::vector<Edge *> matches;
 	std::vector<Vertex *> oddVertexes;
 	
-
 	for (auto vtx : mst.getVertexSet())
 	{
 		vtx->setVisited(false);

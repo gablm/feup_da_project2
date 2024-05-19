@@ -99,8 +99,7 @@ ReturnDataTSP Manager::triangularApproximationHeuristic()
 	Vertex *base = network.getVertexSet().front();
 	Graph mst = PrimMST(network, base);
 
-	for (auto vtx : network.getVertexSet())
-		vtx->setVisited(false);
+	for (auto vtx : network.getVertexSet()) vtx->setVisited(false);
 
 	Vertex *mstBase = mst.findVertex(base->getId());
 	trianApproxDfs(mstBase, nullptr, stops, distances, &totalDistance);

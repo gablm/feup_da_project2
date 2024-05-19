@@ -10,6 +10,8 @@
 #include <iomanip>
 #include <set>
 #include <list>
+#include <stack>
+#include <unordered_set>
 
 #ifdef __linux__
 # include <unistd.h>

@@ -17,20 +17,21 @@ void Manager::createClusters(Graph& g, double distance,
 
     std::vector<Vertex*> nodes = g.getVertexSet();
 
-    for (auto& vertex : nodes) {
+    for (auto& vertex : nodes)
+	{
         bool fitted = false;
         if (vertex->getId() == 0) continue;
 
-        for (auto& cluster : clusters) {
-            if (vertex->getEdgeTo(cluster.front())->getWeight() <= distance) {
+        for (auto& cluster : clusters)
+		{
+            if (vertex->getEdgeTo(cluster.front())->getWeight() <= distance)
+			{
                 cluster.push_back(vertex);
                 fitted = true;
                 break;
             }
         }
-        if (!fitted) {
-            clusters.push_back({vertex});
-        }
+        if (!fitted) clusters.push_back({vertex});
     }
 }
 

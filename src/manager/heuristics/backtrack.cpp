@@ -60,9 +60,7 @@ ReturnDataTSP Manager::backtrackingHeuristic()
     
     Vertex* initial = network.findVertex(0);
 
-    for (auto v : network.getVertexSet()) {
-        v->setVisited(false);
-    }
+    for (auto v : network.getVertexSet()) v->setVisited(false);
 
     backtrack(&network, initial, path, current, &totalDistance, &stops);
 
