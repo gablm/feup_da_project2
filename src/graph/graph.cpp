@@ -97,7 +97,7 @@ Info Vertex::getInfo() const {
     return this->info;
 }
 
-std::vector<Edge *> Vertex::getAdj() const {
+const std::vector<Edge *>& Vertex::getAdj() const {
     return this->adj;
 }
 std::unordered_map<int, Edge *> Vertex::getAdjMap() const{
@@ -224,11 +224,11 @@ int Graph::getNumVertex() const {
     return vertexSet.size();
 }
 
-std::vector<Vertex *> Graph::getVertexSet() const {
+const std::vector<Vertex *>& Graph::getVertexSet()  const{
     return vertexSet;
 }
 
-std::unordered_map<int, Vertex*> Graph::getVertexMap() const{
+const std::unordered_map<int, Vertex*>& Graph::getVertexMap() const {
     return vertexMap;
 }
 

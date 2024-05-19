@@ -104,11 +104,11 @@ void Manager::fullyConnectGraph()
 	std::thread loader = std::thread(thrLoadScreen2, 
 		&active, &vtxnumb, vertexCount);
 
-	for (auto vtx : network.getVertexSet())
+	for (auto& vtx : network.getVertexSet())
 	{
 		vtxnumb++;
 		if (vtx->getAdj().size() == vertexCount - 1) continue;
-		for (auto vtx2 : network.getVertexSet())
+		for (auto& vtx2 : network.getVertexSet())
 		{
 			if (vtx == vtx2) continue;
 			if (vtx->getEdgeTo(vtx2) != nullptr) continue;

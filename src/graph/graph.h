@@ -39,7 +39,7 @@ public:
 
 	int getId() const;
     Info getInfo() const;
-    std::vector<Edge *> getAdj() const;
+    const std::vector<Edge *>& getAdj() const;
 	std::unordered_map<int, Edge *> getAdjMap() const;
 
     bool isVisited() const;
@@ -124,8 +124,8 @@ public:
     bool addBidirectionalEdge(int sourc, int dest, double w);
 
     int getNumVertex() const;
-    std::vector<Vertex *> getVertexSet() const;
-    std::unordered_map<int, Vertex*> getVertexMap() const;
+    const std::vector<Vertex *>& getVertexSet() const;
+    const std::unordered_map<int, Vertex*>& getVertexMap() const;
 	void resetGraph();
 protected:
     std::vector<Vertex *> vertexSet;
