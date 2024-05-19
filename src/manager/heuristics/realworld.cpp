@@ -136,7 +136,7 @@ bool Manager::invalidPath(Graph &g, std::vector<int> &stops, std::vector<double>
  * After this, a euler walk is generated and from this, an hamilton circuit.
  * As some graph are not fully connected, a valid path is not guaranteed.
  * @param base Base vertex where the tour will be started.
- * @note Complexity: O(V + E)
+ * @note Complexity: O(E log V)
  * @return Structure with the time taken, stops, distances between stops and max distance travelled.
 */
 ReturnDataTSP Manager::realWorldHeuristic(Vertex *base)

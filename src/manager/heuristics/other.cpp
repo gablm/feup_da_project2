@@ -61,7 +61,7 @@ double Manager::triangularCluster(Graph& graph, Vertex* base,
  * This heuristic uses triangular approximation, 
  * but first divides the network into smaller closer clusters. (Divide&Conqueer)
  * @return Structure with the time taken, stops, distances between stops and max distance travelled.
- * @note Complexity: O(V + E)
+ * @note Complexity: O(E log V)
 */
 ReturnDataTSP Manager::otherHeuristic()
 {
