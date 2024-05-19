@@ -132,9 +132,6 @@ public:
 protected:
     std::vector<Vertex *> vertexSet;
 	std::unordered_map<int, Vertex *> vertexMap;
-
-    double **distMatrix = nullptr;
-    int **pathMatrix = nullptr;
 };
 
 #endif
